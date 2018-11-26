@@ -1,0 +1,18 @@
+applicationPort: 1337
+image: hmctssandbox.azurecr.io/hmcts/custard-frontend
+environment:
+configmap:
+memoryRequests: "64Mi"
+cpuRequests: "100m"
+memoryLimits: "256Mi"
+cpuLimits: "500m"
+ingressHost: custard-helm.service.core-compute-saat.internal
+readinessPath: "/health"
+readinessDelay: 5
+readinessTimeout: 3
+readinessPeriod: 15
+livenessPath: "/health"
+livenessDelay: 5
+livenessTimeout: 3
+livenessPeriod: 15
+livenessFailureThreshold: 3
