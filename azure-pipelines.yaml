@@ -16,6 +16,7 @@ resources:
 
 jobs:
   - job: Validate
+    steps:
       - template: jobs/charts/validate.yaml@cnp-library
         parameters:
           chartName: nodejs
