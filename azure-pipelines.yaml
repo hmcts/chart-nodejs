@@ -11,7 +11,7 @@ resources:
   repositories:
     - repository: cnp-library
       type: github
-      name: hmcts/cnp-azuredevops-libraries/tree/stepify-jobs
+      name: hmcts/cnp-azuredevops-libraries@stepify-jobs
       endpoint: "HMCTS Github"
 
 jobs:
