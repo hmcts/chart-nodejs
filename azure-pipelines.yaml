@@ -1,12 +1,15 @@
-name: Chart Validate Pull Request
+name: Nodejs Chart CI Pipeline
+
 trigger:
   branches:
     include:
       - refs/tags/*
+
 pr:
   branches:
     include:
       - master
+
 resources:
   repositories:
     - repository: cnp-library
@@ -26,9 +29,13 @@ jobs:
           chartReleaseName: chart-nodejs-ci-test
           chartNamespace: chart-tests
 
-  - ${{ if startsWith(variables['Build.SourceBranch'], 'refs/tags/') }}:
-      - template: jobs/charts/release.yaml@cnp-library
-        parameters:
-          chartName: nodejs
-          chartReleaseName: chart-nodejs
-          chartNamespace: chart-tests
+  - job: Release
+    condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/tags/'))
+    dependsOn: Validate
+    pool:
+      vmImage: "Ubuntu 16.04"
+    steps:
+      - template: steps/charts/release.yaml@cnp-library
+        chartName: nodejs
+        chartReleaseName: chart-nodejs
+        chartNamespace: chart-tests
