@@ -1,0 +1,23 @@
+name: Chart Validate Pull Request
+trigger:
+  branches:
+    include:
+      - refs/tags/*
+pr:
+  branches:
+    include:
+      - master
+resources:
+  repositories:
+    - repository: cnp-library
+      type: github
+      name: hmcts/cnp-azuredevops-libraries
+      endpoint: "HMCTS Github"
+
+jobs:
+  - ${{ if eq(variables['Build.Reason'], 'PullRequest') }}:
+      - template: jobs/charts/validate.yaml@cnp-library
+        parameters:
+          chartName: nodejs
+          chartReleaseName: chart-nodejs-ci-test
+          chartNamespace: chart-tests
