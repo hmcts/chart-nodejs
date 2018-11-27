@@ -11,7 +11,7 @@ resources:
   repositories:
     - repository: cnp-library
       type: github
-      name: hmcts/cnp-azuredevops-libraries
+      name: hmcts/cnp-azuredevops-libraries/tree/add-resource
       endpoint: "HMCTS Github"
 
 jobs:
