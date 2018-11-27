@@ -20,7 +20,7 @@ jobs:
     pool:
       vmImage: "Ubuntu 16.04"
     steps:
-      - template: step/validate.yaml@cnp-library
+      - template: steps/chart/validate.yaml@cnp-library
         parameters:
           chartName: nodejs
           chartReleaseName: chart-nodejs-ci-test
