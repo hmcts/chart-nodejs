@@ -55,7 +55,11 @@ Default configuration (e.g. default image and ingress host) is setup for sandbox
 
 `helm test` will deploy a busybox container alongside the release which performs a simple HTTP request against the service health endpoint. If it doesn't return `HTTP 200` the test will fail. **NOTE:** it does NOT run with `--cleanup` so the test pod will be available for inspection.
 
-**NB**: For the purpose of testing this chart, we use the [Rhubarb](https://github.com/hmcts/cnp-rhubarb-frontend) frontend app image, especially as it exposes an `/health` endpoint.
+### Troubleshooting
+
+#### Docker image not found
+
+For the purpose of testing this chart, we use the [Rhubarb](https://github.com/hmcts/cnp-rhubarb-frontend) frontend app image, especially as it exposes an `/health` endpoint.
 
 In the case this image is not found on the registry when you run the `make` command, you can build it locally and push it yourself to the sandbox registry.
 
@@ -67,6 +71,12 @@ $ docker build -t hmctssandbox.azurecr.io/hmcts/custard-frontend .
 
 $ docker push hmctssandbox.azurecr.io/hmcts/custard-frontend
 ```
+
+#### Adding new resource fails in Azure Devops
+
+You added a new job to the pipeline and it complains about a resource not being authorised: well this is too bad, however Microsoft has a workaround for you:
+
+https://docs.microsoft.com/en-gb/azure/devops/pipelines/process/resources?view=vsts
 
 ## Azure DevOps Builds
 
