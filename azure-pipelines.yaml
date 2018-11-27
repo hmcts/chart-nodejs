@@ -15,19 +15,13 @@ resources:
       endpoint: "HMCTS Github"
 
 jobs:
-  - job: Validate
-    steps:
-      - template: jobs/charts/validate.yaml@cnp-library
-        parameters:
-          chartName: nodejs
-          chartReleaseName: chart-nodejs-ci-test
-          chartNamespace: chart-tests
+  - template: jobs/charts/validate.yaml@cnp-library
+    parameters:
+      chartName: nodejs
+      chartReleaseName: chart-nodejs-ci-test
+      chartNamespace: chart-tests
 
-  - job: Release
-    dependsOn: Validate
-    # If there is a tag, create a release
-    condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/tags/'))
-    steps:
+  - ${{ if startsWith(variables['Build.SourceBranch'], 'refs/tags/') }}:
       - template: jobs/charts/release.yaml@cnp-library
         parameters:
           chartName: nodejs
