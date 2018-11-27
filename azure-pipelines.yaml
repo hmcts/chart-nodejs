@@ -26,7 +26,7 @@ jobs:
   - job: Release
     dependsOn: Validate
     # If there is a tag, create a release
-    conditions: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/tags/'))
+    condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/tags/'))
     steps:
       - template: jobs/charts/release.yaml@cnp-library
         parameters:
