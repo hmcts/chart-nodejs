@@ -15,9 +15,19 @@ resources:
       endpoint: "HMCTS Github"
 
 jobs:
-  - ${{ if eq(variables['Build.Reason'], 'PullRequest') }}:
+  - job: Debug
+    steps:
+      - script: echo hello pipeline
+  - ${{ if startsWith(variables['Build.SourceBranch'], 'refs/pull/')  }}:
       - template: jobs/charts/validate.yaml@cnp-library
         parameters:
           chartName: nodejs
           chartReleaseName: chart-nodejs-ci-test
+          chartNamespace: chart-tests
+
+  - ${{ if startsWith(variables['Build.SourceBranch'], 'refs/tags/') }}:
+      - template: jobs/charts/release.yaml@cnp-library
+        parameters:
+          chartName: nodejs
+          chartReleaseName: chart-nodejs
           chartNamespace: chart-tests
