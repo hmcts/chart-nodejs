@@ -16,11 +16,15 @@ resources:
       endpoint: "HMCTS Github"
 
 jobs:
-  - template: jobs/charts/validate.yaml@cnp-library
-    parameters:
-      chartName: nodejs
-      chartReleaseName: chart-nodejs-ci-test
-      chartNamespace: chart-tests
+  - job: Validate
+    pool:
+      vmImage: "Ubuntu 16.04"
+    steps:
+      - template: step/validate.yaml@cnp-library
+        parameters:
+          chartName: nodejs
+          chartReleaseName: chart-nodejs-ci-test
+          chartNamespace: chart-tests
 
   - ${{ if startsWith(variables['Build.SourceBranch'], 'refs/tags/') }}:
       - template: jobs/charts/release.yaml@cnp-library
