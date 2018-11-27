@@ -36,6 +36,7 @@ jobs:
       vmImage: "Ubuntu 16.04"
     steps:
       - template: steps/charts/release.yaml@cnp-library
-        chartName: nodejs
-        chartReleaseName: chart-nodejs
-        chartNamespace: chart-tests
+        parameters:
+          chartName: nodejs
+          chartReleaseName: chart-nodejs
+          chartNamespace: chart-tests
