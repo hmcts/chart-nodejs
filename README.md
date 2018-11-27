@@ -55,9 +55,18 @@ Default configuration (e.g. default image and ingress host) is setup for sandbox
 
 `helm test` will deploy a busybox container alongside the release which performs a simple HTTP request against the service health endpoint. If it doesn't return `HTTP 200` the test will fail. **NOTE:** it does NOT run with `--cleanup` so the test pod will be available for inspection.
 
-NB: For the purpose of testing this chart, we use the rhubarb frontend app image, especially as it exposes an `/health` endpoint. In the case this image is not found when you run the make command, you can build it and push it yourself to the sandbox registry (`hmctssandbox.azurecr.io/hmcts/custard-frontend`).
+**NB**: For the purpose of testing this chart, we use the [Rhubarb](https://github.com/hmcts/cnp-rhubarb-frontend) frontend app image, especially as it exposes an `/health` endpoint.
 
-docker build -t hmcts/custard-frontend .
+In the case this image is not found on the registry when you run the `make` command, you can build it locally and push it yourself to the sandbox registry.
+
+```bash
+# ...In Rhubarb frontend repo root folder.
+# Also make sure you are logged in with the sandbox subscription
+
+$ docker build -t hmctssandbox.azurecr.io/hmcts/custard-frontend .
+
+$ docker push hmctssandbox.azurecr.io/hmcts/custard-frontend
+```
 
 ## Azure DevOps Builds
 
