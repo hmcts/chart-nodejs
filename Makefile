@@ -36,6 +36,4 @@ else
 	git tag $(CHART_VERSION)
 endif
 
-
-
-.PHONY: setup clean lint deploy test all
+.PHONY: setup clean lint deploy test all tag
