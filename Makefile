@@ -7,27 +7,36 @@ ACR := hmctssandbox
 AKS_RESOURCE_GROUP := cnp-aks-sandbox-rg
 AKS_CLUSTER := cnp-aks-sandbox-cluster
 
-setup:
+help:
+	@echo ""
+	@echo " Available commands:"
+	@echo " -------------------"
+	@echo ""
+	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf " make \033[36m%-30s\033[0m %s\n", $$1, $$2}'
+	@echo ""
+
+
+setup: ## Configures your Azure ACR with sandbox credentials for testing purpose
 	az configure --defaults acr=${ACR}
 	az acr helm repo add
 	az aks get-credentials --resource-group ${AKS_RESOURCE_GROUP} --name ${AKS_CLUSTER}
 
-clean:
+clean: ## Removes the installed chart
 	-helm delete --purge ${RELEASE}
 	-kubectl delete pod ${TEST} -n ${NAMESPACE}
 
-lint:
+lint: ## Lints the chart
 	helm lint ${CHART}
 
-deploy:
+deploy: ## Installs the chart with a default image
 	helm install ${CHART} --name ${RELEASE} --namespace ${NAMESPACE} --wait --timeout 60
 
-test:
+test: ## Tests the installed chart
 	helm test ${RELEASE}
 
-all: setup clean lint deploy test
+all: setup clean lint deploy test ## [ Default command ] Lints, installs and tests the current chart
 
-tag:
+tag: ## Creates a git tag with the chart version found in Chart.yaml
 	$(eval CHART_VERSION := $(shell sed -n -e 's/version:[ "]*\([^"]*\).*/\1/p' ${CHART}/Chart.yaml))
 ifeq ($(shell git rev-parse --abbrev-ref HEAD),"master")
 	@echo "You need to be on master to create a tag"
