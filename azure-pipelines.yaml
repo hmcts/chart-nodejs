@@ -19,19 +19,19 @@ resources:
       endpoint: "HMCTS Github"
 
 variables:
-  vmImage: "Ubuntu 16.04"
+  vm_image: "Ubuntu 16.04"
   chartname: nodejs
-  chartNamespace: chart-tests
+  chart_namespace: chart-tests
 
 jobs:
   - job: Validate
     pool:
-      vmImage: $vmImage
+      vmImage: $(vm_image)
     steps:
       - template: steps/charts/validate.yaml@cnp-library
         parameters:
-          chartNamespace: chartNamespace
-          chartName: $chartname
+          chartNamespace: $(chart_namespace)
+          chartName: $(chartname)
           chartReleaseName: chart-nodejs-ci-test
 
   - job: Release
@@ -45,10 +45,10 @@ jobs:
         )
     dependsOn: Validate
     pool:
-      vmImage: $vmImage
+      vmImage: $(vm_image)
     steps:
       - template: steps/charts/release.yaml@cnp-library
         parameters:
-          chartNamespace: chartNamespace
-          chartName: $chartname
+          chartNamespace: $(chart_namespace)
+          chartName: $(chartname)
           chartReleaseName: chart-nodejs
