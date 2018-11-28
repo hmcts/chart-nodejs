@@ -1,5 +1,10 @@
 name: Nodejs Chart CI Pipeline
 
+variables:
+  vmImage: "Ubuntu 16.04"
+  chartname: nodejs
+  chartNamespace: chart-tests
+
 trigger:
   branches:
     include:
@@ -21,22 +26,29 @@ resources:
 jobs:
   - job: Validate
     pool:
-      vmImage: "Ubuntu 16.04"
+      vmImage: $(vmImage)
     steps:
       - template: steps/charts/validate.yaml@cnp-library
         parameters:
-          chartName: nodejs
+          chartNamespace: $(chartNamespace)
+          chartName: $(chartname)
           chartReleaseName: chart-nodejs-ci-test
-          chartNamespace: chart-tests
 
   - job: Release
-    condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/tags/'))
+    # Make sure we are on the master branch with a tag
+    # to trigger this job
+    condition: >
+      and(
+          succeeded(),
+          startsWith(variables['Build.SourceBranch'], 'refs/tags/'),
+          eq(variables['Build.SourceBranch'], 'refs/heads/master')
+        )
     dependsOn: Validate
     pool:
-      vmImage: "Ubuntu 16.04"
+      vmImage: $(vmImage)
     steps:
       - template: steps/charts/release.yaml@cnp-library
         parameters:
-          chartName: nodejs
+          chartNamespace: $(chartNamespace)
+          chartName: $(chartname)
           chartReleaseName: chart-nodejs
-          chartNamespace: chart-tests
