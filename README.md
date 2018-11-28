@@ -1,5 +1,7 @@
 # chart-nodejs
 
+[![Build Status](https://dev.azure.com/hmcts/CNP/_apis/build/status/Helm%20Charts/chart-nodejs)](https://dev.azure.com/hmcts/CNP/_build/latest?definitionId=66)
+
 Nodejs Applications Helm chart.
 
 We will take small PRs and small features to this chart but more complicated needs should be handled in your own chart.
