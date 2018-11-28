@@ -74,6 +74,8 @@ $ docker build -t hmctssandbox.azurecr.io/hmcts/custard-frontend .
 $ docker push hmctssandbox.azurecr.io/hmcts/custard-frontend
 ```
 
+You might have to to the same for the CI which uses the `hmcts.azurecr.io` registry.
+
 #### Adding new resource fails in Azure Devops
 
 You added a new job to the pipeline and it complains about a resource not being authorised: well this is too bad, however Microsoft has a workaround for you:
