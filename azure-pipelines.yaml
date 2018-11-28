@@ -1,10 +1,5 @@
 name: Nodejs Chart CI Pipeline
 
-variables:
-  vmImage: "Ubuntu 16.04"
-  chartname: nodejs
-  chartNamespace: chart-tests
-
 trigger:
   branches:
     include:
@@ -23,15 +18,20 @@ resources:
       ref: refs/heads/stepify-jobs
       endpoint: "HMCTS Github"
 
+variables:
+  vmImage: "Ubuntu 16.04"
+  chartname: nodejs
+  chartNamespace: chart-tests
+
 jobs:
   - job: Validate
     pool:
-      vmImage: $(vmImage)
+      vmImage: $vmImage
     steps:
       - template: steps/charts/validate.yaml@cnp-library
         parameters:
-          chartNamespace: $(chartNamespace)
-          chartName: $(chartname)
+          chartNamespace: chartNamespace
+          chartName: $chartname
           chartReleaseName: chart-nodejs-ci-test
 
   - job: Release
@@ -45,10 +45,10 @@ jobs:
         )
     dependsOn: Validate
     pool:
-      vmImage: $(vmImage)
+      vmImage: $vmImage
     steps:
       - template: steps/charts/release.yaml@cnp-library
         parameters:
-          chartNamespace: $(chartNamespace)
-          chartName: $(chartname)
+          chartNamespace: chartNamespace
+          chartName: $chartname
           chartReleaseName: chart-nodejs
