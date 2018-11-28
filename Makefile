@@ -27,4 +27,15 @@ test:
 
 all: setup clean lint deploy test
 
+tag:
+	$(eval CHART_VERSION := $(shell sed -n -e 's/version:[ "]*\([^"]*\).*/\1/p' ${CHART}/Chart.yaml))
+ifeq ($(shell git rev-parse --abbrev-ref HEAD),"master")
+	@echo "You need to be on master to create a tag"
+else
+	@echo "tagging version $(CHART_VERSION)"
+	git tag $(CHART_VERSION)
+endif
+
+
+
 .PHONY: setup clean lint deploy test all
