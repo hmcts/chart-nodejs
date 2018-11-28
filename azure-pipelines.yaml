@@ -18,20 +18,15 @@ resources:
       ref: refs/heads/stepify-jobs
       endpoint: "HMCTS Github"
 
-variables:
-  vm_image: "Ubuntu 16.04"
-  chartname: nodejs
-  chart_namespace: chart-tests
-
 jobs:
   - job: Validate
     pool:
-      vmImage: $(vm_image)
+      vmImage: "Ubuntu 16.04"
     steps:
       - template: steps/charts/validate.yaml@cnp-library
         parameters:
-          chartNamespace: $(chart_namespace)
-          chartName: $(chartname)
+          chartNamespace: chart-tests
+          chartName: nodejs
           chartReleaseName: chart-nodejs-ci-test
 
   - job: Release
@@ -45,10 +40,10 @@ jobs:
         )
     dependsOn: Validate
     pool:
-      vmImage: $(vm_image)
+      vmImage: "Ubuntu 16.04"
     steps:
       - template: steps/charts/release.yaml@cnp-library
         parameters:
-          chartNamespace: $(chart_namespace)
-          chartName: $(chartname)
+          chartNamespace: chart-tests
+          chartName: nodejs
           chartReleaseName: chart-nodejs
