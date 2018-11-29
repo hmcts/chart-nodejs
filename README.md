@@ -61,24 +61,17 @@ Default configuration (e.g. default image and ingress host) is setup for sandbox
 
 #### Docker image not found
 
-For the purpose of testing this chart, we use the [Rhubarb](https://github.com/hmcts/cnp-rhubarb-frontend) frontend app image, especially as it exposes an `/health` endpoint.
+For the purpose of testing this chart, we use a custom image built from the `/test-image` folder, especially as it exposes an `/health` endpoint and listens to the the port `3000`.
 
 In the case this image is not found on the registry when you run the `make` command, you can build it locally and push it yourself to the sandbox registry.
 
-```bash
-# ...In Rhubarb frontend repo root folder.
-# Also make sure you are logged in with the sandbox subscription
+You can use the `make push-test-image-sbx` command to create and push the image (make sure you are logged in with the right credentials/subscription)
 
-$ docker build -t hmctssandbox.azurecr.io/hmcts/custard-frontend .
-
-$ docker push hmctssandbox.azurecr.io/hmcts/custard-frontend
-```
-
-You might have to to the same for the CI which uses the `hmcts.azurecr.io` registry.
+You might have to to the same for the CI which uses the `hmcts.azurecr.io` registry with the `make push-test-image-non-prod` command.
 
 #### Adding new resource fails in Azure Devops
 
-You added a new job to the pipeline and it complains about a resource not being authorised: well this is too bad, however Microsoft has a workaround for you:
+You added a new job to the pipeline and it complains about a resource not being authorised: well this is too bad! Though Microsoft provides a workaround for you:
 
 https://docs.microsoft.com/en-gb/azure/devops/pipelines/process/resources?view=vsts
 
