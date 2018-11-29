@@ -48,7 +48,6 @@ push-test-image-sbx: test-image ## Pushes the nodejs test image to the sandbox r
 	docker tag ${TEST_IMAGE_NAME} ${REGISTRY_SANDBOX}/${TEST_IMAGE_NAME}
 	docker push ${REGISTRY_SANDBOX}/${TEST_IMAGE_NAME}
 
-
 push-test-image-np: test-image ## Pushes the nodejs test image to the non-prod registry for CI
 	docker tag ${TEST_IMAGE_NAME} ${REGISTRY_NON_PROD}/${TEST_IMAGE_NAME}
 	docker push ${REGISTRY_NON_PROD}/${TEST_IMAGE_NAME} || @echo you need to be logged in to the ${ACR} acr
