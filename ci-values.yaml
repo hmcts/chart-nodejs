@@ -1,4 +1,4 @@
-image: hmcts.azurecr.io/hmcts/custard-frontend
+image: hmcts.azurecr.io/hmcts/chart-nodejs-testapp
 ingressHost: chart-nodejs.service.core-compute-preview.internal
 environment:
   REFORM_TEAM: cnp

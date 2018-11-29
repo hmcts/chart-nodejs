@@ -25,26 +25,26 @@ configmap:
 The following table lists the configurable parameters of the nodejs chart and their default values.
 You most likely may override `image`, `applicationPort` and `environment` for your project.
 
-| Parameter                  | Description                                               | Default                                                                        |
-| -------------------------- | --------------------------------------------------------- | ------------------------------------------------------------------------------ |
-| `applicationPort`          | The port your app runs on in its container                | `1337`                                                                         |
-| `image`                    | Full image url                                            | `hmctssandbox.azurecr.io/hmcts/custard-frontend` (but overridden by pipeline)  |
-| `environment`              | A map containing all environment values you wish to set   | `nil`                                                                          |
-| `configmap`                | A config map, can be used for environment specific config | `nil`                                                                          |
-| `memoryRequests`           | Requests for memory                                       | `64Mi`                                                                         |
-| `cpuRequests`              | Requests for cpu                                          | `100m`                                                                         |
-| `memoryLimits`             | Memory limits                                             | `256Mi`                                                                        |
-| `cpuLimits`                | CPU limits                                                | `500m`                                                                         |
-| `ingressHost`              | Host for ingress controller to map the container to       | `custard-helm.service.core-compute-saat.internal` (but overridden by pipeline) |
-| `readinessPath`            | Path of HTTP readiness probe                              | `/health`                                                                      |
-| `readinessDelay`           | Readiness probe inital delay (seconds)                    | `5`                                                                            |
-| `readinessTimeout`         | Readiness probe timeout (seconds)                         | `3`                                                                            |
-| `readinessPeriod`          | Readiness probe period (seconds)                          | `15`                                                                           |
-| `livenessPath`             | Path of HTTP liveness probe                               | `/health`                                                                      |
-| `livenessDelay`            | Liveness probe inital delay (seconds)                     | `5`                                                                            |
-| `livenessTimeout`          | Liveness probe timeout (seconds)                          | `3`                                                                            |
-| `livenessPeriod`           | Liveness probe period (seconds)                           | `15`                                                                           |
-| `livenessFailureThreshold` | Liveness failure threshold                                | `3`                                                                            |
+| Parameter                  | Description                                               | Default                                                                                |
+| -------------------------- | --------------------------------------------------------- | -------------------------------------------------------------------------------------- |
+| `applicationPort`          | The port your app runs on in its container                | `3000`                                                                                 |
+| `image`                    | Full image url                                            | `hmctssandbox.azurecr.io/hmcts/custard-frontend` (but overridden by pipeline)          |
+| `environment`              | A map containing all environment values you wish to set   | `nil`                                                                                  |
+| `configmap`                | A config map, can be used for environment specific config | `nil`                                                                                  |
+| `memoryRequests`           | Requests for memory                                       | `64Mi`                                                                                 |
+| `cpuRequests`              | Requests for cpu                                          | `100m`                                                                                 |
+| `memoryLimits`             | Memory limits                                             | `256Mi`                                                                                |
+| `cpuLimits`                | CPU limits                                                | `500m`                                                                                 |
+| `ingressHost`              | Host for ingress controller to map the container to       | `chart-nodejs-testapp.service.core-compute-saat.internal` (but overridden by pipeline) |
+| `readinessPath`            | Path of HTTP readiness probe                              | `/health`                                                                              |
+| `readinessDelay`           | Readiness probe inital delay (seconds)                    | `5`                                                                                    |
+| `readinessTimeout`         | Readiness probe timeout (seconds)                         | `3`                                                                                    |
+| `readinessPeriod`          | Readiness probe period (seconds)                          | `15`                                                                                   |
+| `livenessPath`             | Path of HTTP liveness probe                               | `/health`                                                                              |
+| `livenessDelay`            | Liveness probe inital delay (seconds)                     | `5`                                                                                    |
+| `livenessTimeout`          | Liveness probe timeout (seconds)                          | `3`                                                                                    |
+| `livenessPeriod`           | Liveness probe period (seconds)                           | `15`                                                                                   |
+| `livenessFailureThreshold` | Liveness failure threshold                                | `3`                                                                                    |
 
 ## Development and Testing
 

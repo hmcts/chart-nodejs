@@ -1,12 +1,12 @@
-applicationPort: 1337
-image: hmctssandbox.azurecr.io/hmcts/custard-frontend
+applicationPort: 3000
+image: hmctssandbox.azurecr.io/hmcts/chart-nodejs-testapp
 environment:
 configmap:
 memoryRequests: "64Mi"
 cpuRequests: "100m"
 memoryLimits: "256Mi"
 cpuLimits: "500m"
-ingressHost: custard-helm.service.core-compute-saat.internal
+ingressHost: chart-nodejs-testapp.service.core-compute-saat.internal
 readinessPath: "/health"
 readinessDelay: 5
 readinessTimeout: 3
