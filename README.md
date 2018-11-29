@@ -28,7 +28,7 @@ You most likely may override `image`, `applicationPort` and `environment` for yo
 | Parameter                  | Description                                               | Default                                                                                |
 | -------------------------- | --------------------------------------------------------- | -------------------------------------------------------------------------------------- |
 | `applicationPort`          | The port your app runs on in its container                | `3000`                                                                                 |
-| `image`                    | Full image url                                            | `hmctssandbox.azurecr.io/hmcts/custard-frontend` (but overridden by pipeline)          |
+| `image`                    | Full image url                                            | `hmctssandbox.azurecr.io/hmcts/chart-nodejs-testapp` (but overridden by pipeline)      |
 | `environment`              | A map containing all environment values you wish to set   | `nil`                                                                                  |
 | `configmap`                | A config map, can be used for environment specific config | `nil`                                                                                  |
 | `memoryRequests`           | Requests for memory                                       | `64Mi`                                                                                 |
