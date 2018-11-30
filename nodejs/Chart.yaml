@@ -3,9 +3,9 @@ description: A Helm chart for HMCTS nodejs apps
 name: nodejs
 version: 0.0.5
 keywords:
-  - node
-  - javascript
-  - nodejs
+- node
+- javascript
+- nodejs
 sources:
   - https://github.com/hmcts/chart-nodejs
 icon: https://nodejs.org/static/images/logos/nodejs-new-pantone-black.png
