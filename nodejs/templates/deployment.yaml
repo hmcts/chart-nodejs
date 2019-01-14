@@ -30,7 +30,7 @@ spec:
         {{- if .Values.configmap }}
         envFrom:
           - configMapRef:
-              name: {{ .Release.Name }}
+              name: {{ template "hmcts.releaseName" . }}
         {{- end }}
         resources:
           requests:

@@ -27,6 +27,7 @@ You most likely may override `image`, `applicationPort` and `environment` for yo
 
 | Parameter                  | Description                                               | Default                                                                                |
 | -------------------------- | --------------------------------------------------------- | -------------------------------------------------------------------------------------- |
+| `releaseNameOverride`          | Will override the resource name - advised to use with pipeline variable SERVICE_NAME: `releaseNameOverride: ${SERVICE_NAME}-my-custom-name`      | `Release.Name-Chart.Name`     |
 | `applicationPort`          | The port your app runs on in its container                | `3000`                                                                                 |
 | `image`                    | Full image url                                            | `hmctssandbox.azurecr.io/hmcts/chart-nodejs-testapp` (but overridden by pipeline)      |
 | `environment`              | A map containing all environment values you wish to set   | `nil`                                                                                  |
