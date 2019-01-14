@@ -35,7 +35,7 @@ You most likely may override `image`, `applicationPort` and `environment` for yo
 | `cpuRequests`              | Requests for cpu                                          | `100m`                                                                                 |
 | `memoryLimits`             | Memory limits                                             | `256Mi`                                                                                |
 | `cpuLimits`                | CPU limits                                                | `500m`                                                                                 |
-| `ingressHost`              | Host for ingress controller to map the container to       | `chart-nodejs-testapp.service.core-compute-saat.internal` (but overridden by pipeline) |
+| `ingressHost`              | Host for ingress controller to map the container to       | `nil`                                                                                  |
 | `readinessPath`            | Path of HTTP readiness probe                              | `/health`                                                                              |
 | `readinessDelay`           | Readiness probe inital delay (seconds)                    | `5`                                                                                    |
 | `readinessTimeout`         | Readiness probe timeout (seconds)                         | `3`                                                                                    |
