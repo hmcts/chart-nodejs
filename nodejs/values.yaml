@@ -1,4 +1,5 @@
 applicationPort: 3000
+registerDns: false
 image: hmctssandbox.azurecr.io/hmcts/chart-nodejs-testapp
 environment:
 configmap:
