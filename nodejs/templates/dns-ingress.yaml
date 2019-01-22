@@ -13,7 +13,7 @@ metadata:
     kubernetes.io/ingress.class: traefik
 spec:
   rules:
-  - host: nodejs-{{ template "hmcts.releaseName" . }}
+  - host: nodejs-{{ .Values.ingressHost }}
     http:
       paths:
       - path: /
