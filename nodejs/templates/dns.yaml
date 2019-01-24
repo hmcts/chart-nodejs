@@ -1,4 +1,4 @@
-{{- if .Values.registerDns }}
+{{ if .Values.registerAdditonalDns.enabled }}
 ---
 apiVersion: batch/v1
 kind: Job
@@ -34,7 +34,7 @@ spec:
           command: [ "/bin/sh" ]
           args:
             - /container.init/nodejs-dns
-            - nodejs-{{ template "hmcts.releaseName" . }}
+            - {{ .Values.registerAdditonalDns.ingressHost }}
           resources:
             requests:
               memory: {{ .Values.memoryRequests }}

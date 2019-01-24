@@ -1,4 +1,4 @@
-{{- if .Values.registerDns }}
+{{ if .Values.registerAdditonalDns.enabled }}
 ---
 apiVersion: v1
 kind: ConfigMap
