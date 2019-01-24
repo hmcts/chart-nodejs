@@ -4,7 +4,7 @@ environment:
 configmap:
 memoryRequests: 64Mi
 cpuRequests: 25m
-memoryLimits: 256Mi
+memoryLimits: 512Mi
 cpuLimits: 500m
 readinessPath: /health
 readinessDelay: 5
