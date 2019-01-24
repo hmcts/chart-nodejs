@@ -37,6 +37,8 @@ You most likely may override `image`, `applicationPort` and `environment` for yo
 | `memoryLimits`             | Memory limits                                             | `256Mi`                                                                                |
 | `cpuLimits`                | CPU limits                                                | `500m`                                                                                 |
 | `ingressHost`              | Host for ingress controller to map the container to       | `nil`                                                                                  |
+| `registerAdditonalDns.enabled`            | If you want to use this chart as a secondary dependency - e.g. providing a frontend to a backend, and the backend is using primary ingressHost DNS mapping. Note: you will also need to define: `ingressIP: ${INGRESS_IP}` and `consulIP: ${CONSUL_LB_IP}` - this will be populated by pipeline                           | `false`      
+| `registerAdditonalDns.ingressHost`            | The additional hostname to use                              | `nil`      
 | `readinessPath`            | Path of HTTP readiness probe                              | `/health`                                                                              |
 | `readinessDelay`           | Readiness probe inital delay (seconds)                    | `5`                                                                                    |
 | `readinessTimeout`         | Readiness probe timeout (seconds)                         | `3`                                                                                    |
