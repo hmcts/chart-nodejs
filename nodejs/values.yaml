@@ -5,8 +5,8 @@ image: hmctssandbox.azurecr.io/hmcts/chart-nodejs-testapp
 environment:
 configmap:
 memoryRequests: 64Mi
-cpuRequests: 100m
-memoryLimits: 256Mi
+cpuRequests: 25m
+memoryLimits: 512Mi
 cpuLimits: 500m
 readinessPath: /health
 readinessDelay: 5
