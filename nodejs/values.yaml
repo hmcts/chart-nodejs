@@ -2,8 +2,6 @@ applicationPort: 3000
 registerAdditionalDns:
   enabled: false
 image: hmctssandbox.azurecr.io/hmcts/chart-nodejs-testapp
-environment:
-configmap:
 memoryRequests: 64Mi
 cpuRequests: 25m
 memoryLimits: 512Mi
