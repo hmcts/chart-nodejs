@@ -9,15 +9,17 @@ We will take small PRs and small features to this chart but more complicated nee
 ## Example configuration
 
 ```
-applicationPort: 8080
-environment:
-  REFORM_TEAM: cnp
-  REFORM_SERVICE_NAME: rhubarb-frontend
-  REFORM_ENVIRONMENT: preview
-  ROOT_APPENDER: CNP
-configmap:
-  VAR_A: VALUE_A
-  VAR_B: VALUE_B
+nodejs: 
+  applicationPort: 8080
+  image: ${IMAGE}
+  environment:
+    REFORM_TEAM: cnp
+    REFORM_SERVICE_NAME: rhubarb-frontend
+    REFORM_ENVIRONMENT: preview
+    ROOT_APPENDER: CNP
+  configmap:
+    VAR_A: VALUE_A
+    VAR_B: VALUE_B
 ```
 
 ## Configuration
@@ -25,30 +27,30 @@ configmap:
 The following table lists the configurable parameters of the nodejs chart and their default values.
 You most likely may override `image`, `applicationPort` and `environment` for your project.
 
-| Parameter                  | Description                                               | Default                                                                                |
-| -------------------------- | --------------------------------------------------------- | -------------------------------------------------------------------------------------- |
-| `releaseNameOverride`          | Will override the resource name - advised to use with pipeline variable SERVICE_NAME: `releaseNameOverride: ${SERVICE_NAME}-my-custom-name`      | `Release.Name-Chart.Name`     |
-| `applicationPort`          | The port your app runs on in its container                | `3000`                                                                                 |
-| `image`                    | Full image url                                            | `hmctssandbox.azurecr.io/hmcts/chart-nodejs-testapp` (but overridden by pipeline)      |
-| `environment`              | A map containing all environment values you wish to set   | `nil`                                                                                  |
-| `configmap`                | A config map, can be used for environment specific config | `nil`                                                                                  |
-| `memoryRequests`           | Requests for memory                                       | `64Mi`                                                                                 |
-| `cpuRequests`              | Requests for cpu                                          | `100m`                                                                                 |
-| `memoryLimits`             | Memory limits                                             | `256Mi`                                                                                |
-| `cpuLimits`                | CPU limits                                                | `500m`                                                                                 |
-| `ingressHost`              | Host for ingress controller to map the container to       | `nil`                                                                                  |
-| `registerAdditionalDns.enabled`            | If you want to use this chart as a secondary dependency - e.g. providing a frontend to a backend, and the backend is using primary ingressHost DNS mapping. Note: you will also need to define: `ingressIP: ${INGRESS_IP}` and `consulIP: ${CONSUL_LB_IP}` - this will be populated by pipeline                           | `false`      
-| `registerAdditionalDns.primaryIngressHost`            | The hostname for primary chart                            | `nil`      
-| `registerAdditionalDns.prefix`            | DNS prefix for this chart - will resolve as: `prefix-{registerAdditionalDns.primaryIngressHost}`                         | `nil`      
-| `readinessPath`            | Path of HTTP readiness probe                              | `/health`                                                                              |
-| `readinessDelay`           | Readiness probe inital delay (seconds)                    | `5`                                                                                    |
-| `readinessTimeout`         | Readiness probe timeout (seconds)                         | `3`                                                                                    |
-| `readinessPeriod`          | Readiness probe period (seconds)                          | `15`                                                                                   |
-| `livenessPath`             | Path of HTTP liveness probe                               | `/health`                                                                              |
-| `livenessDelay`            | Liveness probe inital delay (seconds)                     | `5`                                                                                    |
-| `livenessTimeout`          | Liveness probe timeout (seconds)                          | `3`                                                                                    |
-| `livenessPeriod`           | Liveness probe period (seconds)                           | `15`                                                                                   |
-| `livenessFailureThreshold` | Liveness failure threshold                                | `3`                                                                                    |
+| Parameter | Description | Default | 
+| --------- | ----------- | ------- |
+| `releaseNameOverride` | Will override the resource name - advised to use with pipeline variable SERVICE_NAME: `releaseNameOverride: ${SERVICE_NAME}-my-custom-name` | `Release.Name-Chart.Name` |
+| `applicationPort` | The port your app runs on in its container| `3000` |
+| `image` | *REQUIRED*: Full image url ('${IMAGE}' in the values.template.yml ) | |
+| `environment` | A map containing all environment values you wish to set | `nil` |
+| `configmap` | A config map, can be used for environment specific config | `nil` |
+| `memoryRequests`| Requests for memory | `64Mi`|
+| `cpuRequests` | Requests for cpu | `100m` |
+| `memoryLimits` | Memory limits | `256Mi` |
+| `cpuLimits` | CPU limits | `500m` |
+| `ingressHost` | Host for ingress controller to map the container to| `nil` |
+| `registerAdditionalDns.enabled` | If you want to use this chart as a secondary dependency - e.g. providing a frontend to a backend, and the backend is using primary ingressHost DNS mapping. Note: you will also need to define: `ingressIP: ${INGRESS_IP}` and `consulIP: ${CONSUL_LB_IP}` - this will be populated by pipeline | `false` |    
+| `registerAdditionalDns.primaryIngressHost`| The hostname for primary chart | `nil` |
+| `registerAdditionalDns.prefix` | DNS prefix for this chart - will resolve as: `prefix-{registerAdditionalDns.primaryIngressHost}` | `nil` |  
+| `readinessPath` | Path of HTTP readiness probe| `/health` |
+| `readinessDelay` | Readiness probe inital delay (seconds) | `5` |
+| `readinessTimeout` | Readiness probe timeout (seconds) | `3`|
+| `readinessPeriod` | Readiness probe period (seconds) | `15`|
+| `livenessPath` | Path of HTTP liveness probe | `/health`|
+| `livenessDelay` | Liveness probe inital delay (seconds) | `5` |
+| `livenessTimeout` | Liveness probe timeout (seconds) | `3` |
+| `livenessPeriod` | Liveness probe period (seconds) | `15` |
+| `livenessFailureThreshold`| Liveness failure threshold | `3` |
 
 ## Development and Testing
 

@@ -18,7 +18,7 @@ spec:
         app.kubernetes.io/name: {{ template "hmcts.releaseName" . }}
     spec:
       containers:
-      - image: {{ .Values.image }}
+      - image: {{ required "An image must be supplied to the chart" .Values.image }}
         name: {{ template "hmcts.releaseName" . }}
         {{- if .Values.environment }}
         env:
