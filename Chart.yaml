@@ -1,0 +1,4 @@
+apiVersion: v1
+description: A Helm chart for HMCTS NodeJS apps
+name: nodejs-app
+version: 0.0.5
