@@ -35,7 +35,7 @@ You most likely may override `image`, `applicationPort` and `environment` for yo
 | `environment` | A map containing all environment values you wish to set | `nil` |
 | `configmap` | A config map, can be used for environment specific config | `nil` |
 | `memoryRequests`| Requests for memory | `64Mi`|
-| `cpuRequests` | Requests for cpu | `100m` |
+| `cpuRequests` | Requests for cpu | `25m` |
 | `memoryLimits` | Memory limits | `256Mi` |
 | `cpuLimits` | CPU limits | `500m` |
 | `ingressHost` | Host for ingress controller to map the container to| `nil` |
