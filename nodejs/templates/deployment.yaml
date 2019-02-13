@@ -3,10 +3,7 @@ kind: Deployment
 metadata:
   name: {{ template "hmcts.releaseName" . }}
   labels:
-    app.kubernetes.io/name: {{ template "hmcts.releaseName" . }}
-    helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version }}
-    app.kubernetes.io/managed-by: {{ .Release.Service }}
-    app.kubernetes.io/instance: {{ template "hmcts.releaseName" . }}
+    {{- ( include "labels" . ) | indent 4 }}
 spec:
   replicas: 1
   selector:
@@ -15,8 +12,27 @@ spec:
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: {{ template "hmcts.releaseName" . }}
+        {{- ( include "labels" . ) | indent 8 }}
     spec:
+      {{- if .Values.keyVaults }}
+      {{ $globals := .Values.global }}
+      volumes:
+      {{ range $vault, $info := .Values.keyVaults -}}
+      - name: {{ $vault }}
+        flexVolume:
+          driver: "azure/kv"
+          secretRef:
+            name: chart-flex-ref
+          options:
+            usepodidentity: "false"
+            subscriptionid: {{ $globals.subscriptionId }}
+            tenantid: {{ $globals.tenantId | quote}}
+            keyvaultname: "{{ $vault }}-{{ $globals.environment }}"
+            resourcegroup: "{{ required " .keyVaults.VAULT requires a .resourceGroup" $info.resourceGroup  }}-{{ $globals.environment }}"
+            keyvaultobjectnames: "{{range $index, $secret := $info.secrets }}{{if $index}};{{end}}{{ $secret }}{{ end }}"
+            keyvaultobjecttypes: "{{range $index, $secret := $info.secrets }}{{if $index}};{{end}}secret{{ end }}"
+      {{ end }}
+      {{- end -}}
       containers:
       - image: {{ required "An image must be supplied to the chart" .Values.image }}
         name: {{ template "hmcts.releaseName" . }}
@@ -31,6 +47,14 @@ spec:
         envFrom:
           - configMapRef:
               name: {{ template "hmcts.releaseName" . }}
+        {{- end }}
+        {{- if .Values.keyVaults }}
+        volumeMounts:
+        {{- range $vault, $info := .Values.keyVaults }}
+          - name: {{ $vault }}
+            mountPath: /mnt/vaults/{{ $vault }}
+            readOnly: true
+        {{- end }}
         {{- end }}
         resources:
           requests:

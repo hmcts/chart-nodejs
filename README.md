@@ -20,6 +20,21 @@ nodejs:
   configmap:
     VAR_A: VALUE_A
     VAR_B: VALUE_B
+  keyVaults:
+    cmc:
+      resourceGroup: cmc
+      secrets:
+        - smoke-test-citizen-username
+        - smoke-test-ushmmer-password
+        - os-postcode-lookup-api-key
+        - AppInsightsInstrumentationKey
+        - citizen-oauth-client-secret
+        - citizen-draft-store-primary
+        - citizen-cookie-encryption-key
+    s2s:
+      resourceGroup: rpe-service-auth-provider
+      secrets:
+        - microservicekey-cmcLegalFrontend
 ```
 
 ## Configuration
