@@ -1,4 +1,4 @@
-FROM node:8-slim
+FROM node:10-slim
 ENV NODE_PORT 3000
 COPY package* ./
 RUN npm install

@@ -14,19 +14,19 @@ spec:
       labels:
         {{- ( include "labels" . ) | indent 8 }}
     spec:
-      {{- if .Values.keyVaults }}
-      {{ $globals := .Values.global }}
+      {{ if .Values.keyVaults -}}
+      {{ $globals := .Values.global -}}
       volumes:
       {{ range $vault, $info := .Values.keyVaults -}}
       - name: {{ $vault }}
         flexVolume:
           driver: "azure/kv"
           secretRef:
-            name: chart-flex-ref
+            name: "chart-flex-ref"
           options:
             usepodidentity: "false"
-            subscriptionid: {{ $globals.subscriptionId }}
-            tenantid: {{ $globals.tenantId | quote}}
+            subscriptionid: {{ $globals.subscriptionId | quote }}
+            tenantid: {{ $globals.tenantId | quote }}
             keyvaultname: "{{ $vault }}-{{ $globals.environment }}"
             resourcegroup: "{{ required " .keyVaults.VAULT requires a .resourceGroup" $info.resourceGroup  }}-{{ $globals.environment }}"
             keyvaultobjectnames: "{{range $index, $secret := $info.secrets }}{{if $index}};{{end}}{{ $secret }}{{ end }}"
@@ -51,8 +51,8 @@ spec:
         {{- if .Values.keyVaults }}
         volumeMounts:
         {{- range $vault, $info := .Values.keyVaults }}
-          - name: {{ $vault }}
-            mountPath: /mnt/vaults/{{ $vault }}
+          - name: {{ $vault | quote }}
+            mountPath: "/mnt/secrets/{{ $vault }}"
             readOnly: true
         {{- end }}
         {{- end }}
