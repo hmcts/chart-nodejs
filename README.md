@@ -22,7 +22,6 @@ nodejs:
     VAR_B: VALUE_B  
   keyVaults:
     cmc:
-      excludeEnvironmentSuffix: false
       resourceGroup: cmc
       secrets:
         - smoke-test-citizen-username
