@@ -3,10 +3,7 @@ kind: Deployment
 metadata:
   name: {{ template "hmcts.releaseName" . }}
   labels:
-    app.kubernetes.io/name: {{ template "hmcts.releaseName" . }}
-    helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version }}
-    app.kubernetes.io/managed-by: {{ .Release.Service }}
-    app.kubernetes.io/instance: {{ template "hmcts.releaseName" . }}
+    {{- ( include "labels" . ) | indent 4 }}
 spec:
   replicas: 1
   selector:
@@ -15,8 +12,9 @@ spec:
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: {{ template "hmcts.releaseName" . }}
+        {{- ( include "labels" . ) | indent 8 }}
     spec:
+      {{- ( include "secretVolumes" . ) | indent 6 }}
       containers:
       - image: {{ required "An image must be supplied to the chart" .Values.image }}
         name: {{ template "hmcts.releaseName" . }}
@@ -32,6 +30,7 @@ spec:
           - configMapRef:
               name: {{ template "hmcts.releaseName" . }}
         {{- end }}
+        {{- ( include "secretMounts" . ) | indent 8 }}
         resources:
           requests:
             memory: {{ .Values.memoryRequests }}

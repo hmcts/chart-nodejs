@@ -5,6 +5,7 @@ kind: ConfigMap
 metadata:
   name: {{ template "hmcts.releaseName" . }}-bin
   labels:
+    {{- ( include "labels" . ) | indent 4 }}
     system: "{{ .Chart.Name }}-{{ .Chart.Version }}"
     type: configuration
 data:

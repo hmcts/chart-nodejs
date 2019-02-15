@@ -19,7 +19,17 @@ nodejs:
     ROOT_APPENDER: CNP
   configmap:
     VAR_A: VALUE_A
-    VAR_B: VALUE_B
+    VAR_B: VALUE_B  
+  keyVaults:
+    cmc:
+      resourceGroup: cmc
+      secrets:
+        - smoke-test-citizen-username
+        - smoke-test-ushmmer-password
+    s2s:
+      resourceGroup: rpe-service-auth-provider
+      secrets:
+        - microservicekey-cmcLegalFrontend
 ```
 
 ## Configuration
@@ -51,7 +61,31 @@ You most likely may override `image`, `applicationPort` and `environment` for yo
 | `livenessTimeout` | Liveness probe timeout (seconds) | `3` |
 | `livenessPeriod` | Liveness probe period (seconds) | `15` |
 | `livenessFailureThreshold`| Liveness failure threshold | `3` |
+| `keyVaults`| This section is about adding the keyvault secrets to the file system see [Adding Azure Key Vault Secrets]()| none |
 
+## Adding Azure Key Vault Secrets
+Key vault secrets are mounted to the container filesystem using what's called a [flexvolume](https://github.com/Azure/kubernetes-keyvault-flexvol)
+*encrypted* environment variables. This adds a very easy convenient way of accessing the key-vault very little hassle.
+To do this we need to add the **keyVaults** member to the configuration as below.
+```yaml
+keyVaults:
+    <VAULT_NAME>:
+      excludeEnvironmentSuffix: true
+      resourceGroup: <VAULT_RESOURCE_GROUP>
+      secrets:
+        - <SECRET_NAME>
+        - <SECRET_NAME2>
+    <VAULT_NAME_2>:
+      resourceGroup: <VAULT_RESOURCE_GROUP_2>
+      secrets:
+        - <SECRET_NAME>
+        - <SECRET_NAME2>
+```
+**Where**:
+- *<VAULT_NAME>*: This is the name of the vault to access without the environment tag i.e. `s2s` or `bulkscan`.
+- *<VAULT_RESOURCE_GROUP>*: This is the resource group for the vault this also does not need the environment tag ie. for s2s vault it is `rpe-service-auth-provider`.
+- *<SECRET_NAME>* This is the name of the secret as it is in the vault. Note this is case and punctuation sensitive. i.e. in s2s there is the `microservicekey-cmcLegalFrontend` secret.
+- *excludeEnvironmentSuffix*: This is used for the global key vaults where there is not environment suffix ( e.g `-aat` ) required. It defaults to false if it is not there and should only be added if you are using a global key-vault.
 ## Development and Testing
 
 Default configuration (e.g. default image and ingress host) is setup for sandbox. This is suitable for local development and testing.
