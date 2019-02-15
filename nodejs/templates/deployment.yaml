@@ -14,26 +14,7 @@ spec:
       labels:
         {{- ( include "labels" . ) | indent 8 }}
     spec:
-      {{ if .Values.keyVaults -}}
-      {{ $globals := .Values.global -}}
-      {{ $keyVaults := .Values.keyVaults -}}
-      volumes:
-      {{ range $vault, $info := .Values.keyVaults -}}
-      - name: {{ $vault }}
-        flexVolume:
-          driver: "azure/kv"
-          secretRef:
-            name: {{ default "kvcreds" $keyVaults.secretRef }}
-          options:
-            usepodidentity: "false"
-            subscriptionid: {{ $globals.subscriptionId | quote }}
-            tenantid: {{ $globals.tenantId | quote }}
-            keyvaultname: "{{ $vault }}-{{ $globals.environment }}"
-            resourcegroup: "{{ required " .keyVaults.VAULT requires a .resourceGroup" $info.resourceGroup  }}-{{ $globals.environment }}"
-            keyvaultobjectnames: "{{range $index, $secret := $info.secrets }}{{if $index}};{{end}}{{ $secret }}{{ end }}"
-            keyvaultobjecttypes: "{{range $index, $secret := $info.secrets }}{{if $index}};{{end}}secret{{ end }}"
-      {{ end }}
-      {{- end -}}
+      {{- ( include "secretVolumes" . ) | indent 6 }}
       containers:
       - image: {{ required "An image must be supplied to the chart" .Values.image }}
         name: {{ template "hmcts.releaseName" . }}
@@ -49,14 +30,7 @@ spec:
           - configMapRef:
               name: {{ template "hmcts.releaseName" . }}
         {{- end }}
-        {{- if .Values.keyVaults }}
-        volumeMounts:
-        {{- range $vault, $info := .Values.keyVaults }}
-          - name: {{ $vault | quote }}
-            mountPath: "/mnt/secrets/{{ $vault }}"
-            readOnly: true
-        {{- end }}
-        {{- end }}
+        {{- ( include "secretMounts" . ) | indent 8 }}
         resources:
           requests:
             memory: {{ .Values.memoryRequests }}

@@ -22,20 +22,42 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 app.kubernetes.io/instance: {{ template "hmcts.releaseName" . }}
 {{- end -}}
 
-{{- define "vault" }}
-  {{- if eq .Values.subscriptionId "bf308a5c-0624-4334-8ff8-8dca9fd43783"}}
-  {{- "infra-vault-sandbox" -}}
-  {{- else }}
-  {{- "infra-vault-prod" -}}
-  {{- end }}
+{{/*
+The bit of templating needed to create the flex-Volume keyvault for mounting
+*/}}
+{{- define "secretVolumes" }}
+{{- if .Values.keyVaults }}
+{{- $globals := .Values.global }}
+{{- $keyVaults := .Values.keyVaults }}
+volumes:
+{{- range $vault, $info := .Values.keyVaults }}
+- name: {{ $vault }}
+  flexVolume:
+    driver: "azure/kv"
+    secretRef:
+      name: {{ default "kvcreds" $keyVaults.secretRef }}
+    options:
+      usepodidentity: "false"
+      subscriptionid: {{ $globals.subscriptionId | quote }}
+      tenantid: {{ $globals.tenantId | quote }}
+      keyvaultname: "{{ $vault }}-{{ $globals.environment }}"
+      resourcegroup: "{{ required " .keyVaults.VAULT requires a .resourceGroup" $info.resourceGroup  }}-{{ $globals.environment }}"
+      keyvaultobjectnames: "{{range $index, $secret := $info.secrets }}{{if $index}};{{end}}{{ $secret }}{{ end }}"
+      keyvaultobjecttypes: "{{range $index, $secret := $info.secrets }}{{if $index}};{{end}}secret{{ end }}"
+{{- end }}
+{{- end }}
 {{- end }}
 
-{{- define "resourcegroup" }}
-  {{- if eq .Values.subscriptionId "bf308a5c-0624-4334-8ff8-8dca9fd43783"}}
-  {{- "cnp-core-infra" -}}
-  {{- else }}
-  {{- "core-infra-prod" -}}
-  {{- end }}
+{{/*
+Mount the Key vaults on /mnt/secrets
+*/}}
+{{- define "secretMounts" -}}
+{{- if .Values.keyVaults }}
+volumeMounts:
+{{- range $vault, $info := .Values.keyVaults }}
+  - name: {{ $vault | quote }}
+    mountPath: "/mnt/secrets/{{ $vault }}"
+    readOnly: true
 {{- end }}
-
-
+{{- end }}
+{{- end }}
