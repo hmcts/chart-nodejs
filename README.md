@@ -19,9 +19,10 @@ nodejs:
     ROOT_APPENDER: CNP
   configmap:
     VAR_A: VALUE_A
-    VAR_B: VALUE_B
+    VAR_B: VALUE_B  
   keyVaults:
     cmc:
+      excludeEnvironmentSuffix: false
       resourceGroup: cmc
       secrets:
         - smoke-test-citizen-username
@@ -70,6 +71,7 @@ To do this we need to add the **keyVaults** member to the configuration as below
 ```yaml
 keyVaults:
     <VAULT_NAME>:
+      excludeEnvironmentSuffix: true
       resourceGroup: <VAULT_RESOURCE_GROUP>
       secrets:
         - <SECRET_NAME>
@@ -84,7 +86,7 @@ keyVaults:
 - *<VAULT_NAME>*: This is the name of the vault to access without the environment tag i.e. `s2s` or `bulkscan`.
 - *<VAULT_RESOURCE_GROUP>*: This is the resource group for the vault this also does not need the environment tag ie. for s2s vault it is `rpe-service-auth-provider`.
 - *<SECRET_NAME>* This is the name of the secret as it is in the vault. Note this is case and punctuation sensitive. i.e. in s2s there is the `microservicekey-cmcLegalFrontend` secret.
-
+- *excludeEnvironmentSuffix*: This is used for the global key vaults where there is not environment suffix ( e.g `-aat` ) required. It defaults to false if it is not there and should only be added if you are using a global key-vault.
 ## Development and Testing
 
 Default configuration (e.g. default image and ingress host) is setup for sandbox. This is suitable for local development and testing.
