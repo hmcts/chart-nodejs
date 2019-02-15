@@ -13,7 +13,7 @@ We truncate at 63 chars because some Kubernetes name fields are limited to this 
 
 ---
 {{/*
-All the common lables needed for the lables sections of the definitions.
+All the common labels needed for the labels sections of the definitions.
 */}}
 {{- define "labels" }}
 app.kubernetes.io/name: {{ template "hmcts.releaseName" . }}
