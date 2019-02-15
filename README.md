@@ -26,11 +26,6 @@ nodejs:
       secrets:
         - smoke-test-citizen-username
         - smoke-test-ushmmer-password
-        - os-postcode-lookup-api-key
-        - AppInsightsInstrumentationKey
-        - citizen-oauth-client-secret
-        - citizen-draft-store-primary
-        - citizen-cookie-encryption-key
     s2s:
       resourceGroup: rpe-service-auth-provider
       secrets:
@@ -66,6 +61,29 @@ You most likely may override `image`, `applicationPort` and `environment` for yo
 | `livenessTimeout` | Liveness probe timeout (seconds) | `3` |
 | `livenessPeriod` | Liveness probe period (seconds) | `15` |
 | `livenessFailureThreshold`| Liveness failure threshold | `3` |
+| `keyVaults`| This section is about adding the keyvault secrets to the file system see [Adding Azure Key Vault Secrets]()| none |
+
+## Adding Azure Key Vault Secrets
+We now support the integration of the key vault secrets into the docker filesystem so they don't have to be stored as _secrets_ (via side car or configMap) or 
+*encrypted* environment variables. This adds a very easy convenient way of accessing the key-vault very little hassle.
+To do this we need to add the **keyVaults** member to the configuration as below.
+```yaml
+keyVaults:
+    <VAULT_NAME>:
+      resourceGroup: <VAULT_RESOURCE_GROUP>
+      secrets:
+        - <SECRET_NAME>
+        - <SECRET_NAME2>
+    <VAULT_NAME_2>:
+      resourceGroup: <VAULT_RESOURCE_GROUP_2>
+      secrets:
+        - <SECRET_NAME>
+        - <SECRET_NAME2>
+```
+**Where**:
+- *<VAULT_NAME>*: This is the name of the vault to access without the environment tag i.e. `s2s` or `bulkscan`.
+- *<VAULT_RESOURCE_GROUP>*: This is the resource group for the vault this also does not need the environment tag ie. for s2s vault it is `rpe-service-auth-provider`.
+- *<SECRET_NAME>* This is the name of the secret as it is in the vault. Note this is case and punctuation sensitive. i.e. in s2s there is the `microservicekey-cmcLegalFrontend` secret.
 
 ## Development and Testing
 
