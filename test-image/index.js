@@ -14,7 +14,7 @@ const expectedfiles=[
 app
   .get("/", (req, res) => res.send(payload))
   .get("/health",  (req, res) => {
-    files = expectedfiles.map( file => fsPromise.open(file, 'r' ));
+    files = expectedfiles.map( file => fsPromise.open(file, 'r' ))
     Promise.all(files)
     .then( files =>  res.send(payload) )  
     .catch( err => {

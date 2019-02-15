@@ -16,13 +16,14 @@ spec:
     spec:
       {{ if .Values.keyVaults -}}
       {{ $globals := .Values.global -}}
+      {{ $keyVaults := .Values.keyVaults -}}
       volumes:
       {{ range $vault, $info := .Values.keyVaults -}}
       - name: {{ $vault }}
         flexVolume:
           driver: "azure/kv"
           secretRef:
-            name: "chart-flex-ref"
+            name: {{ default "kvcreds" $keyVaults.secretRef }}
           options:
             usepodidentity: "false"
             subscriptionid: {{ $globals.subscriptionId | quote }}
