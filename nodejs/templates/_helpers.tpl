@@ -40,8 +40,8 @@ volumes:
       usepodidentity: "false"
       subscriptionid: {{ $globals.subscriptionId | quote }}
       tenantid: {{ $globals.tenantId | quote }}
-      keyvaultname: "{{ $vault }}-{{ $globals.environment }}"
-      resourcegroup: "{{ required " .keyVaults.VAULT requires a .resourceGroup" $info.resourceGroup  }}-{{ $globals.environment }}"
+      keyvaultname: "{{ $vault }}{{ if not (default $info.excludeEnvironmentSuffix false) }}-{{ $globals.environment }}{{ end }}"
+      resourcegroup: "{{ required " .keyVaults.VAULT requires a .resourceGroup" $info.resourceGroup  }}{{ if not (default $info.excludeEnvironmentSuffix false) }}-{{ $globals.environment }}{{ end }}"
       keyvaultobjectnames: "{{range $index, $secret := $info.secrets }}{{if $index}};{{end}}{{ $secret }}{{ end }}"
       keyvaultobjecttypes: "{{range $index, $secret := $info.secrets }}{{if $index}};{{end}}secret{{ end }}"
 {{- end }}
