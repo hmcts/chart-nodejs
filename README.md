@@ -64,7 +64,7 @@ You most likely may override `image`, `applicationPort` and `environment` for yo
 | `keyVaults`| This section is about adding the keyvault secrets to the file system see [Adding Azure Key Vault Secrets]()| none |
 
 ## Adding Azure Key Vault Secrets
-We now support the integration of the key vault secrets into the docker filesystem so they don't have to be stored as _secrets_ (via side car or configMap) or 
+Key vault secrets are mounted to the container filesystem using what's called a [flexvolume](https://github.com/Azure/kubernetes-keyvault-flexvol)
 *encrypted* environment variables. This adds a very easy convenient way of accessing the key-vault very little hassle.
 To do this we need to add the **keyVaults** member to the configuration as below.
 ```yaml
