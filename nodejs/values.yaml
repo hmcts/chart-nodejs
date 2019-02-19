@@ -1,4 +1,5 @@
 applicationPort: 3000
+replicas: 1
 registerAdditionalDns:
   enabled: false
 memoryRequests: 64Mi
