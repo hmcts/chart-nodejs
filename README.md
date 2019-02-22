@@ -30,6 +30,7 @@ nodejs:
       resourceGroup: rpe-service-auth-provider
       secrets:
         - microservicekey-cmcLegalFrontend
+  applicationInsightsInstrumentKey: some-key
 ```
 
 ## Configuration
@@ -62,6 +63,8 @@ You most likely may override `image`, `applicationPort` and `environment` for yo
 | `livenessPeriod` | Liveness probe period (seconds) | `15` |
 | `livenessFailureThreshold`| Liveness failure threshold | `3` |
 | `keyVaults`| This section is about adding the keyvault secrets to the file system see [Adding Azure Key Vault Secrets]()| none |
+| `applicationInsightsInstrumentKey` | Instrumentation Key for App Insights , It is mapped to `APPINSIGHTS_INSTRUMENTATIONKEY` as environment variable | `00000000-0000-0000-0000-000000000000`
+
 
 ## Adding Azure Key Vault Secrets
 Key vault secrets are mounted to the container filesystem using what's called a [flexvolume](https://github.com/Azure/kubernetes-keyvault-flexvol)

@@ -20,6 +20,8 @@ spec:
         name: {{ template "hmcts.releaseName" . }}
         {{- if .Values.environment }}
         env:
+        - name: APPINSIGHTS_INSTRUMENTATIONKEY
+          value: {{ .Values.applicationInsightsInstrumentKey | quote }}
           {{- range $key, $val := .Values.environment }}
         - name: {{ $key }}
           value: {{ $val | quote }}
