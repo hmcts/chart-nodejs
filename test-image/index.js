@@ -2,7 +2,6 @@ const express = require('express')
 const app = express()
 const payload = {message: 'Im all right !'}
 const config = require('@hmcts/properties-volume').addTo(require('config'))
-console.log("config is: " +JSON.stringify(config))
 const port = config.get('server.port')
 
 app.get('/', (req, res) => res.send(payload))
