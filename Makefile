@@ -2,14 +2,12 @@
 CHART := nodejs
 RELEASE := chart-${CHART}-release
 NAMESPACE := chart-tests
-TEST := ${RELEASE}-test-service
-ACR := hmctssandbox
-ACR_SUBSCRIPTION := DCD-CFT-Sandbox
-AKS_RESOURCE_GROUP := cnp-aks-sandbox-rg
-AKS_CLUSTER := cnp-aks-sandbox-cluster
+TEST := ${RELEASE}-${CHART}-test-service
+ACR := hmcts
+ACR_SUBSCRIPTION := DCD-CNP-DEV
+AKS_RESOURCE_GROUP := cnp-aks-rg
+AKS_CLUSTER := cnp-aks-cluster
 TEST_IMAGE_NAME := hmcts/chart-nodejs-testapp
-REGISTRY_SANDBOX := hmctssandbox.azurecr.io
-REGISTRY_NON_PROD := hmcts.azurecr.io
 
 help:
 	@echo ""
@@ -25,17 +23,17 @@ setup: ## Configures your Azure ACR with sandbox credentials for testing purpose
 	az account set --subscription ${ACR_SUBSCRIPTION}
 	az configure --defaults acr=${ACR}
 	az acr helm repo add
-	az aks get-credentials --resource-group ${AKS_RESOURCE_GROUP} --name ${AKS_CLUSTER}
+	az aks get-credentials --overwrite-existing --resource-group ${AKS_RESOURCE_GROUP} --name ${AKS_CLUSTER} 
 
 clean: ## Removes the installed chart
 	-helm delete --purge ${RELEASE}
-	-kubectl delete pod ${TEST} -n ${NAMESPACE}
+	-kubectl delete --namespace ${NAMESPACE} pod/${TEST}
 
 lint: ## Lints the chart
 	helm lint ${CHART}
 
 deploy: ## Installs the chart with a default image
-	helm install ${CHART} --name ${RELEASE} --namespace ${NAMESPACE} --wait --timeout 60
+	helm install ${CHART} --name ${RELEASE} --namespace ${NAMESPACE} -f ci-values.yaml --wait --timeout 60
 
 test: ## Tests the installed chart
 	helm test ${RELEASE}
@@ -45,14 +43,10 @@ test-image: ## Creates a nodejs test image
 		-t ${TEST_IMAGE_NAME} \
 		./test-image
 
-push-test-image-sbx: test-image ## Pushes the nodejs test image to the sandbox registry
+push-test-image: test-image ## Pushes the nodejs test image to the non-prod registry for CI
 	az acr login --name ${ACR}
-	docker tag ${TEST_IMAGE_NAME} ${REGISTRY_SANDBOX}/${TEST_IMAGE_NAME}
-	docker push ${REGISTRY_SANDBOX}/${TEST_IMAGE_NAME}
-
-push-test-image-np: test-image ## Pushes the nodejs test image to the non-prod registry for CI
-	docker tag ${TEST_IMAGE_NAME} ${REGISTRY_NON_PROD}/${TEST_IMAGE_NAME}
-	docker push ${REGISTRY_NON_PROD}/${TEST_IMAGE_NAME} || @echo you need to be logged in to the ${ACR} acr
+	docker tag ${TEST_IMAGE_NAME} ${ACR}.azurecr.io/${TEST_IMAGE_NAME}
+	docker push ${ACR}.azurecr.io/${TEST_IMAGE_NAME} || @echo you need to be logged in to the ${REGISTRY_NON_PROD} acr
 
 tag: ## Creates a git tag with the chart version found in Chart.yaml
 	$(eval CHART_VERSION := $(shell sed -n -e 's/version:[ "]*\([^"]*\).*/\1/p' ${CHART}/Chart.yaml))

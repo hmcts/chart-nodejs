@@ -6,6 +6,8 @@ global:
 image: hmcts.azurecr.io/hmcts/chart-nodejs-testapp
 replicas: 2
 ingressHost: chart-nodejs.service.core-compute-preview.internal
+livenessPath: /health/liveness
+imagePullPolicy: Always
 environment:
   REFORM_TEAM: cnp
   REFORM_SERVICE_NAME: rhubarb-frontend
