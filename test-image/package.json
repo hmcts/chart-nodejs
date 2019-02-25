@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "This is a simple test application to test the this chart. Including the properties volume",
   "repository": "https://github.com/hmcts/chart-nodejs",
+  "main": "index.js",
   "scripts": {
     "start": "node index.js"
   },
