@@ -1,14 +1,22 @@
 {
-  "name": "test-image",
+  "name": "test-application",
   "version": "1.0.0",
-  "description": "",
+  "description": "This is a simple test application to test the this chart. Including the properties volume",
+  "repository": "https://github.com/hmcts/chart-nodejs",
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "https://github.com/hmcts/chart-nodejs",
+  "license": "MIT",
+  "engines": {
+    "node": ">=10.0.0"
+  },
   "dependencies": {
-    "express": "^4.16.4"
+    "@hmcts/properties-volume": "0.0.8",
+    "config": "^3.0.1",
+    "express": "^4.16.4",
+    "yarn": "^1.14.0",
+    "js-yaml": "^3.12.1"
   }
 }
