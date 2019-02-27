@@ -14,6 +14,10 @@ spec:
       labels:
         {{- ( include "labels" . ) | indent 8 }}
     spec:
+      securityContext:
+        runAsUser: 1000
+        fsGroup: 1000
+        allowPrivilegeEscalation: false # Note: this is not picked up, neither here
       {{- ( include "secretVolumes" . ) | indent 6 }}
       containers:
       - image: {{ required "An image must be supplied to the chart" .Values.image }}
