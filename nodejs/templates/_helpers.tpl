@@ -57,6 +57,7 @@ volumeMounts:
 {{- range $vault, $info := .Values.keyVaults }}
   - name: {{ $vault | quote }}
     mountPath: "/mnt/secrets/{{ $vault }}"
+    readOnly: true
 {{- end }}
 {{- end }}
 {{- end }}
