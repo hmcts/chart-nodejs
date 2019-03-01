@@ -42,6 +42,8 @@ You most likely may override `image`, `applicationPort` and `environment` for yo
 | --------- | ----------- | ------- |
 | `releaseNameOverride` | Will override the resource name - advised to use with pipeline variable SERVICE_NAME: `releaseNameOverride: ${SERVICE_NAME}-my-custom-name` | `Release.Name-Chart.Name` |
 | `applicationPort` | The port your app runs on in its container| `3000` |
+| `replicas` | Number of pod replicas | `1` |
+| `useInterpodAntiAffinity` | Always schedule replicas on different nodes | `false` | 
 | `image` | *REQUIRED*: Full image url ('${IMAGE}' in the values.template.yml ) | |
 | `imagePullPolicy` | Kubernetes container image pull policy | `IfNotPresent` |
 | `environment` | A map containing all environment values you wish to set | `nil` |

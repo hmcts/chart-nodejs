@@ -14,6 +14,18 @@ spec:
       labels:
         {{- ( include "labels" . ) | indent 8 }}
     spec:
+      {{- if .Values.useInterpodAntiAffinity }}
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app.kubernetes.io/name
+                operator: In
+                values:
+                - {{ template "hmcts.releaseName" . }}
+            topologyKey: "kubernetes.io/hostname"
+      {{- end }}
       securityContext:
         runAsUser: 1000
         fsGroup: 1000
