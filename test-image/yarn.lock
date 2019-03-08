@@ -2,9 +2,10 @@
 # yarn lockfile v1
 
 
-"@hmcts/nodejs-healthcheck@../../nodejs-healthcheck/hmcts-nodejs-healthcheck-1.5.0.tgz":
-  version "1.5.0"
-  resolved "../../nodejs-healthcheck/hmcts-nodejs-healthcheck-1.5.0.tgz#d63ceea8d394bc3a3c929222db3be355efc3f51f"
+"@hmcts/nodejs-healthcheck@1.5.1":
+  version "1.5.1"
+  resolved "https://registry.yarnpkg.com/@hmcts/nodejs-healthcheck/-/nodejs-healthcheck-1.5.1.tgz#4d99f9e3041e11fcfacf0bec82eb8a2463fcea01"
+  integrity sha512-DFaBhc42UU5X8uaaCmlHBk2Mrw12hNVWhWvd3zH3pN6ucCb/IgqxLMBOVXPClDzWwpKMlbKATN3EPz6rru47wg==
   dependencies:
     fs-extra "^4.0.1"
     js-yaml "^3.8.4"

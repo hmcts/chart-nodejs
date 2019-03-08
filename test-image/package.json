@@ -17,7 +17,7 @@
   },
   "dependencies": {
     "@hmcts/properties-volume": "0.0.8",
-    "@hmcts/nodejs-healthcheck": "../../nodejs-healthcheck/hmcts-nodejs-healthcheck-1.5.0.tgz",
+    "@hmcts/nodejs-healthcheck": "1.5.1",
     "config": "^3.0.1",
     "express": "^4.16.4",
     "yarn": "^1.14.0",
