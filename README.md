@@ -60,7 +60,7 @@ You most likely may override `image`, `applicationPort` and `environment` for yo
 | `readinessDelay` | Readiness probe inital delay (seconds) | `5` |
 | `readinessTimeout` | Readiness probe timeout (seconds) | `3`|
 | `readinessPeriod` | Readiness probe period (seconds) | `15`|
-| `livenessPath` | Path of HTTP liveness probe | `/health`|
+| `livenessPath` | Path of HTTP liveness probe | `/health/liveness`|
 | `livenessDelay` | Liveness probe inital delay (seconds) | `5` |
 | `livenessTimeout` | Liveness probe timeout (seconds) | `3` |
 | `livenessPeriod` | Liveness probe period (seconds) | `15` |
