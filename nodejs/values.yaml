@@ -11,7 +11,7 @@ readinessPath: /health
 readinessDelay: 5
 readinessTimeout: 3
 readinessPeriod: 15
-livenessPath: /health
+livenessPath: /health/liveness
 livenessDelay: 5
 livenessTimeout: 3
 livenessPeriod: 15

@@ -11,5 +11,12 @@ spec:
     env:
       - name: SERVICE_NAME
         value: {{ template "hmcts.releaseName" . }}
-    command: ["sh", "-c", "httpstatuscode=$(wget -S http://$SERVICE_NAME/health 2>&1 | grep HTTP/ | awk 'END{print $2}') && [ \"$httpstatuscode\" = \"200\" ]"]
+    command: ["sh", "-c"]
+    args:
+      - echo 'Testing readiness';
+        readinessStatusCode=$(wget -S http://$SERVICE_NAME/health 2>&1 | grep HTTP/ | awk 'END{print $2}');
+        test "$readinessStatusCode" = "200"; echo $?;
+        echo 'Testing liveness';
+        livenessStatusCode=$(wget -S http://$SERVICE_NAME/health/liveness 2>&1 | grep HTTP/ | awk 'END{print $2}');
+        test "$livenessStatusCode" = "200"; echo $?;
   restartPolicy: Never
