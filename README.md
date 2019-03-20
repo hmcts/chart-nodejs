@@ -67,6 +67,9 @@ You most likely may override `image`, `applicationPort` and `environment` for yo
 | `livenessFailureThreshold`| Liveness failure threshold | `3` |
 | `keyVaults`| This section is about adding the keyvault secrets to the file system see [Adding Azure Key Vault Secrets]()| none |
 | `applicationInsightsInstrumentKey` | Instrumentation Key for App Insights , It is mapped to `APPINSIGHTS_INSTRUMENTATIONKEY` as environment variable | `00000000-0000-0000-0000-000000000000` |
+| `pdb.enabled` | To enable PodDisruptionBudget on the pods for handling disruptions | `true` |
+| `pdb.maxUnavailable` |  To configure the number of pods from the set that can be unavailable after the eviction. It can be either an absolute number or a percentage. pdb.minAvailable takes precedence over this if not nil | `50%` means evictions are allowed as long as no more than 50% of the desired replicas are unhealthy. It will allow disruption if you have only 1 replica.|
+| `pdb.minAvailable` |  To configure the number of pods from that set that must still be available after the eviction, even in the absence of the evicted pod. minAvailable can be either an absolute number or a percentage. This takes precedence over pdb.maxUnavailable if not nil. | `nil`|
 
 ## Adding Azure Key Vault Secrets
 Key vault secrets are mounted to the container filesystem using what's called a [flexvolume](https://github.com/Azure/kubernetes-keyvault-flexvol)
