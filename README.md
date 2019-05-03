@@ -1,3 +1,4 @@
+[![Board Status](https://dev.azure.com/hmcts/90472b63-dc8d-4ae6-8819-a32bd211e914/7f80f83a-38cd-451d-ab4b-3b31ab5fbab3/_apis/work/boardbadge/9a4c8097-030c-470b-b445-219d5c87bdd8)](https://dev.azure.com/hmcts/90472b63-dc8d-4ae6-8819-a32bd211e914/_boards/board/t/7f80f83a-38cd-451d-ab4b-3b31ab5fbab3/Microsoft.RequirementCategory)
 # chart-nodejs
 
 [![Build Status](https://dev.azure.com/hmcts/CNP/_apis/build/status/Helm%20Charts/chart-nodejs)](https://dev.azure.com/hmcts/CNP/_build/latest?definitionId=66)
