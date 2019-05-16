@@ -45,3 +45,5 @@ jobs:
       chartNamespace: chart-tests
       chartName: nodejs
       chartReleaseName: chart-nodejs
+
+      
