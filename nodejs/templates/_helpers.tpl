@@ -20,6 +20,9 @@ app.kubernetes.io/name: {{ template "hmcts.releaseName" . }}
 helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version }}
 app.kubernetes.io/managed-by: {{ .Release.Service }}
 app.kubernetes.io/instance: {{ template "hmcts.releaseName" . }}
+{{- if .Values.aadIdentityName }}
+aadpodidbinding: {{ .Values.aadIdentityName }}
+{{- end }}
 {{- end -}}
 
 {{/*
@@ -29,15 +32,18 @@ The bit of templating needed to create the flex-Volume keyvault for mounting
 {{- if .Values.keyVaults }}
 {{- $globals := .Values.global }}
 {{- $keyVaults := .Values.keyVaults }}
+{{- $aadIdentityName := .Values.aadIdentityName }}
 volumes:
 {{- range $vault, $info := .Values.keyVaults }}
 - name: {{ $vault }}
   flexVolume:
     driver: "azure/kv"
+    {{- if not $aadIdentityName }}
     secretRef:
       name: {{ default "kvcreds" $keyVaults.secretRef }}
+    {{- end}}
     options:
-      usepodidentity: "false"
+      usepodidentity: "{{ if $aadIdentityName }}true{{ else }}false{{ end}}"
       subscriptionid: {{ $globals.subscriptionId | quote }}
       tenantid: {{ $globals.tenantId | quote }}
       keyvaultname: "{{ $vault }}{{ if not (default $info.excludeEnvironmentSuffix false) }}-{{ $globals.environment }}{{ end }}"
