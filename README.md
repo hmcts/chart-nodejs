@@ -70,10 +70,11 @@ You most likely may override `image`, `applicationPort` and `environment` for yo
 | `pdb.enabled` | To enable PodDisruptionBudget on the pods for handling disruptions | `true` |
 | `pdb.maxUnavailable` |  To configure the number of pods from the set that can be unavailable after the eviction. It can be either an absolute number or a percentage. pdb.minAvailable takes precedence over this if not nil | `50%` means evictions are allowed as long as no more than 50% of the desired replicas are unhealthy. It will allow disruption if you have only 1 replica.|
 | `pdb.minAvailable` |  To configure the number of pods from that set that must still be available after the eviction, even in the absence of the evicted pod. minAvailable can be either an absolute number or a percentage. This takes precedence over pdb.maxUnavailable if not nil. | `nil`|
+| `aadIdentityName` | Identity to assign to the pod, can be used for accessing azure resources such as key vault | `nil` |
 
 ## Adding Azure Key Vault Secrets
 Key vault secrets are mounted to the container filesystem using what's called a [flexvolume](https://github.com/Azure/kubernetes-keyvault-flexvol)
-*encrypted* environment variables. This adds a very easy convenient way of accessing the key-vault very little hassle.
+*encrypted* environment variables. This adds a very easy convenient way of accessing the key-vault.
 To do this we need to add the **keyVaults** member to the configuration as below.
 ```yaml
 keyVaults:
@@ -94,6 +95,9 @@ keyVaults:
 - *<VAULT_RESOURCE_GROUP>*: This is the resource group for the vault this also does not need the environment tag ie. for s2s vault it is `rpe-service-auth-provider`.
 - *<SECRET_NAME>* This is the name of the secret as it is in the vault. Note this is case and punctuation sensitive. i.e. in s2s there is the `microservicekey-cmcLegalFrontend` secret.
 - *excludeEnvironmentSuffix*: This is used for the global key vaults where there is not environment suffix ( e.g `-aat` ) required. It defaults to false if it is not there and should only be added if you are using a global key-vault.
+
+If you wish to use pod identity for accessing the key vaults instead of a service principal you need to set a flag `aadIdentityName: <identity-name>`
+
 ## Development and Testing
 
 Default configuration (e.g. default image and ingress host) is setup for sandbox. This is suitable for local development and testing.
