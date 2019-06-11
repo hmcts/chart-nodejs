@@ -46,7 +46,7 @@ You most likely may override `image`, `applicationPort` and `environment` for yo
 | `useInterpodAntiAffinity` | Always schedule replicas on different nodes | `false` | 
 | `image` | *REQUIRED*: Full image url ('${IMAGE}' in the values.template.yml ) | |
 | `imagePullPolicy` | Kubernetes container image pull policy | `IfNotPresent` |
-| `environment` | A map containing all environment values you wish to set | `nil` |
+| `environment` | A map containing all environment values you wish to set. Values can be templated | `nil` |
 | `configmap` | A config map, can be used for environment specific config | `nil` |
 | `memoryRequests`| Requests for memory | `64Mi`|
 | `cpuRequests` | Requests for cpu | `25m` |
