@@ -21,3 +21,5 @@ imagePullPolicy: IfNotPresent
 pdb:
   enabled: true
   maxUnavailable: 50%
+global:
+  enableKeyVaults: false

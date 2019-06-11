@@ -41,7 +41,7 @@ spec:
           value: {{ .Values.applicationInsightsInstrumentKey | quote }}
           {{- range $key, $val := .Values.environment }}
         - name: {{ $key }}
-          value: {{ $val | quote }}
+          value: {{ tpl ($val | quote) $ }}
           {{- end}}
         {{- if .Values.configmap }}
         envFrom:
