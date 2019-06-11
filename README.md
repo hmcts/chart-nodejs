@@ -98,6 +98,9 @@ keyVaults:
 
 If you wish to use pod identity for accessing the key vaults instead of a service principal you need to set a flag `aadIdentityName: <identity-name>`
 
+**Note**: To enable `keyVaults` to be mounted as flexvolumes :
+- When not using Jenkins, explicitly set global.enableKeyVaults to `true` .
+- When not using pod identity, your service principal credentials need to be added to your namespace as a Kubernetes secret named `kvcreds` and accessible by the KeyVault FlexVolume driver. 
 ## Development and Testing
 
 Default configuration (e.g. default image and ingress host) is setup for sandbox. This is suitable for local development and testing.
