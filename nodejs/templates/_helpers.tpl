@@ -29,7 +29,7 @@ aadpodidbinding: {{ .Values.aadIdentityName }}
 The bit of templating needed to create the flex-Volume keyvault for mounting
 */}}
 {{- define "secretVolumes" }}
-{{- if .Values.keyVaults }}
+{{- if and .Values.keyVaults .Values.global.enableKeyVaults }}
 {{- $globals := .Values.global }}
 {{- $keyVaults := .Values.keyVaults }}
 {{- $aadIdentityName := .Values.aadIdentityName }}
@@ -58,7 +58,7 @@ volumes:
 Mount the Key vaults on /mnt/secrets
 */}}
 {{- define "secretMounts" -}}
-{{- if .Values.keyVaults }}
+{{- if and .Values.keyVaults .Values.global.enableKeyVaults }}
 volumeMounts:
 {{- range $vault, $info := .Values.keyVaults }}
   - name: {{ $vault | quote }}

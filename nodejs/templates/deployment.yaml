@@ -42,7 +42,7 @@ spec:
           {{- ( include "nodejs.secrets" .) | indent 8 }}
           {{- range $key, $val := .Values.environment }}
         - name: {{ $key }}
-          value: {{ $val | quote }}
+          value: {{ tpl ($val | quote) $ }}
           {{- end}}
         {{- if .Values.configmap }}
         envFrom:

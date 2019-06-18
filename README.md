@@ -54,7 +54,7 @@ You most likely may override `image`, `applicationPort` and `environment` for yo
 | `useInterpodAntiAffinity` | Always schedule replicas on different nodes | `false` | 
 | `image` | *REQUIRED*: Full image url ('${IMAGE}' in the values.template.yml ) | |
 | `imagePullPolicy` | Kubernetes container image pull policy | `IfNotPresent` |
-| `environment` | A map containing all environment values you wish to set | `nil` |
+| `environment` | A map containing all environment values you wish to set. Values can be templated | `nil` |
 | `configmap` | A config map, can be used for environment specific config | `nil` |
 | `memoryRequests`| Requests for memory | `64Mi`|
 | `cpuRequests` | Requests for cpu | `25m` |
@@ -106,6 +106,10 @@ keyVaults:
 - *excludeEnvironmentSuffix*: This is used for the global key vaults where there is not environment suffix ( e.g `-aat` ) required. It defaults to false if it is not there and should only be added if you are using a global key-vault.
 
 If you wish to use pod identity for accessing the key vaults instead of a service principal you need to set a flag `aadIdentityName: <identity-name>`
+
+**Note**: To enable `keyVaults` to be mounted as flexvolumes :
+- When not using Jenkins, explicitly set global.enableKeyVaults to `true` .
+- When not using pod identity, your service principal credentials need to be added to your namespace as a Kubernetes secret named `kvcreds` and accessible by the KeyVault FlexVolume driver. 
 
 ## Kubernetes Secrets
 To add kubernetes secrets such as passwords and service keys to the Nodejs chart you can use the the secrets section.
