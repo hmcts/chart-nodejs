@@ -8,10 +8,18 @@ We will take small PRs and small features to this chart but more complicated nee
 
 ## Example configuration
 
-```
+```yaml
 nodejs: 
   applicationPort: 8080
   image: ${IMAGE}
+  secrets: 
+    ENVIRONMENT_VAR:
+        secretRef: some-secret-reference
+        key: connectionString
+    ENVIRONMENT_VAR_OTHER:
+        secretRef: some-secret-reference-other
+        key: connectionStringOther
+        disabled: true #ENVIRONMENT_VAR_OTHER will not be set to environment
   environment:
     REFORM_TEAM: cnp
     REFORM_SERVICE_NAME: rhubarb-frontend
@@ -66,6 +74,7 @@ You most likely may override `image`, `applicationPort` and `environment` for yo
 | `livenessPeriod` | Liveness probe period (seconds) | `15` |
 | `livenessFailureThreshold`| Liveness failure threshold | `3` |
 | `keyVaults`| This section is about adding the keyvault secrets to the file system see [Adding Azure Key Vault Secrets]()| none |
+| `secrets`                  | Mappings of environment variables to service objects or pre-configured kubernetes secrets |  nil |
 | `applicationInsightsInstrumentKey` | Instrumentation Key for App Insights , It is mapped to `APPINSIGHTS_INSTRUMENTATIONKEY` as environment variable | `00000000-0000-0000-0000-000000000000` |
 | `pdb.enabled` | To enable PodDisruptionBudget on the pods for handling disruptions | `true` |
 | `pdb.maxUnavailable` |  To configure the number of pods from the set that can be unavailable after the eviction. It can be either an absolute number or a percentage. pdb.minAvailable takes precedence over this if not nil | `50%` means evictions are allowed as long as no more than 50% of the desired replicas are unhealthy. It will allow disruption if you have only 1 replica.|
@@ -97,6 +106,23 @@ keyVaults:
 - *excludeEnvironmentSuffix*: This is used for the global key vaults where there is not environment suffix ( e.g `-aat` ) required. It defaults to false if it is not there and should only be added if you are using a global key-vault.
 
 If you wish to use pod identity for accessing the key vaults instead of a service principal you need to set a flag `aadIdentityName: <identity-name>`
+
+## Kubernetes Secrets
+To add kubernetes secrets such as passwords and service keys to the Nodejs chart you can use the the secrets section.
+The secrets section maps the secret to an environment variable in the container.
+e.g :
+```yaml
+secrets: 
+  CONNECTION_STRING:
+      secretRef: some-secret-reference
+      key: connectionString
+      disabled: false
+```
+**Where:**
+- **CONNECTION_STRING** is the environment variable to set to the value of the secret ( this has to be capitals and can contain numbers or "_" ).
+- **secretRef** is the service instance ( as in the case of PaaS wrappers ) or reference to the secret volume. It supports templating in values.yaml . Example : secretRef: some-secret-reference-{{ .Release.Name }}
+- **key** is the named secret in the secret reference.
+- **disabled** is optional and used to disable setting this environment value. This can be used to override the behaviour of default chart secrets. 
 
 ## Development and Testing
 
