@@ -23,3 +23,6 @@ pdb:
   maxUnavailable: 50%
 global:
   enableKeyVaults: false
+prometheus:
+  enabled: false
+  path: /metrics

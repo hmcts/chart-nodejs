@@ -23,6 +23,11 @@ app.kubernetes.io/instance: {{ template "hmcts.releaseName" . }}
 {{- if .Values.aadIdentityName }}
 aadpodidbinding: {{ .Values.aadIdentityName }}
 {{- end }}
+{{- if .Values.prometheus.enabled }}
+prometheus.io/scrape: true
+prometheus.io/path: {{ .Values.prometheus.path }}
+prometheus.io/port: {{ .Values.applicationPort }}
+{{- end }}
 {{- end -}}
 
 {{/*
