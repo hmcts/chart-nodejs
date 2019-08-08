@@ -26,7 +26,7 @@ aadpodidbinding: {{ .Values.aadIdentityName }}
 {{- end -}}
 
 {{/*
-All the common labels needed for the labels sections of the definitions.
+All the common annotations needed for the annotations sections of the definitions.
 */}}
 {{- define "annotations" }}
 {{- if .Values.prometheus.enabled }}
