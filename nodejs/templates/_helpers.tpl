@@ -34,6 +34,9 @@ prometheus.io/scrape: true
 prometheus.io/path: {{ .Values.prometheus.path }}
 prometheus.io/port: {{ .Values.applicationPort }}
 {{- end }}
+{{- if .Values.buildID }}
+buildID: {{ .Values.buildID }}
+{{- end }}
 {{- end -}}
 
 {{/*
