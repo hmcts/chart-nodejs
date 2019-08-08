@@ -656,8 +656,3 @@ winston@^2.4.1:
     eyes "0.1.x"
     isstream "0.1.x"
     stack-trace "0.0.x"
-
-yarn@^1.14.0:
-  version "1.14.0"
-  resolved "https://registry.yarnpkg.com/yarn/-/yarn-1.14.0.tgz#5b3de6fa57d3e2677caf53c687db84d8edabbf97"
-  integrity sha512-X90WAgXmSNiadjrhD66Gc6i8Ld409blDd9OagJdxy1k8FEBOWlTeoDz7xWpxg7RPCqouTY1hhI0LE3jwj2tdFg==
