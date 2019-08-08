@@ -23,6 +23,12 @@ app.kubernetes.io/instance: {{ template "hmcts.releaseName" . }}
 {{- if .Values.aadIdentityName }}
 aadpodidbinding: {{ .Values.aadIdentityName }}
 {{- end }}
+{{- end -}}
+
+{{/*
+All the common labels needed for the labels sections of the definitions.
+*/}}
+{{- define "annotations" }}
 {{- if .Values.prometheus.enabled }}
 prometheus.io/scrape: true
 prometheus.io/path: {{ .Values.prometheus.path }}
