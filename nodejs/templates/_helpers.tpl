@@ -26,6 +26,20 @@ aadpodidbinding: {{ .Values.aadIdentityName }}
 {{- end -}}
 
 {{/*
+All the common annotations needed for the annotations sections of the definitions.
+*/}}
+{{- define "annotations" }}
+{{- if .Values.prometheus.enabled }}
+prometheus.io/scrape: true
+prometheus.io/path: {{ .Values.prometheus.path }}
+prometheus.io/port: {{ .Values.applicationPort }}
+{{- end }}
+{{- if .Values.buildID }}
+buildID: {{ .Values.buildID }}
+{{- end }}
+{{- end -}}
+
+{{/*
 The bit of templating needed to create the flex-Volume keyvault for mounting
 */}}
 {{- define "secretVolumes" }}

@@ -4,6 +4,8 @@ metadata:
   name: {{ template "hmcts.releaseName" . }}
   labels:
     {{- ( include "labels" . ) | indent 4 }}
+  annotations:
+    {{- ( include "annotations" . ) | indent 4 }}
 spec:
   revisionHistoryLimit: 0
   replicas: {{ .Values.replicas }}
@@ -14,6 +16,8 @@ spec:
     metadata:
       labels:
         {{- ( include "labels" . ) | indent 8 }}
+      annotations:
+        {{- ( include "annotations" . ) | indent 8 }}
     spec:
       {{- if .Values.useInterpodAntiAffinity }}
       affinity:
