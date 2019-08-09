@@ -23,6 +23,9 @@ app.kubernetes.io/instance: {{ template "hmcts.releaseName" . }}
 {{- if .Values.aadIdentityName }}
 aadpodidbinding: {{ .Values.aadIdentityName }}
 {{- end }}
+{{- if .Values.draft }}
+draft: {{ .Values.draft }}
+{{- end }}
 {{- end -}}
 
 {{/*
