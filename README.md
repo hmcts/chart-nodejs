@@ -151,7 +151,7 @@ In the case this image is not found on the registry when you run the `make` comm
 
 You can use the `make push-test-image-sbx` command to create and push the image (make sure you are logged in with the right credentials/subscription)
 
-You might have to to the same for the CI which uses the `hmcts.azurecr.io` registry with the `make push-test-image-non-prod` command.
+You might have to to the same for the CI which uses the `hmctspublic.azurecr.io` registry with the `make push-test-image-non-prod` command.
 
 #### Adding new resource fails in Azure Devops
 
@@ -161,7 +161,7 @@ https://docs.microsoft.com/en-gb/azure/devops/pipelines/process/resources?view=v
 
 ## Azure DevOps Builds
 
-Builds are run against the 'nonprod' AKS cluster.
+Builds are run against the 'preview' AKS cluster.
 
 - `azure-pipelines.yaml`: triggered when pull requests are created. This build will run `helm lint`, deploy the chart using `ci-values.yaml` and run `helm test`.
 - `release.yaml`: triggered when the repository is tagged (e.g. when a release is created). Also performs linting and testing, and will publish the chart to ACR on success.
