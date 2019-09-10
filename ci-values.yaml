@@ -7,7 +7,7 @@ global:
 image: hmctspublic.azurecr.io/chart-nodejs/testapp
 replicas: 2
 useInterpodAntiAffinity: true
-ingressHost: chart-nodejs.service.core-compute-preview.internal
+ingressHost: "{{.Release.Name}}.service.core-compute-preview.internal"
 livenessPath: /health/liveness
 imagePullPolicy: Always
 environment:
