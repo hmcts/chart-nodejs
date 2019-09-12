@@ -48,7 +48,7 @@ You most likely may override `image`, `applicationPort` and `environment` for yo
 
 | Parameter | Description | Default | 
 | --------- | ----------- | ------- |
-| `releaseNameOverride` | Will override the resource name - advised to use with pipeline variable SERVICE_NAME: `releaseNameOverride: ${SERVICE_NAME}-my-custom-name` | `Release.Name-Chart.Name` |
+| `releaseNameOverride` | Will override the resource name - It supports templating, example:`releaseNameOverride: {{ .Release.Name }}-my-custom-name` | `Release.Name-Chart.Name` |
 | `applicationPort` | The port your app runs on in its container| `3000` |
 | `replicas` | Number of pod replicas | `1` |
 | `useInterpodAntiAffinity` | Always schedule replicas on different nodes | `false` | 
