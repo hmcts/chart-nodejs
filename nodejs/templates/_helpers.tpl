@@ -61,10 +61,8 @@ volumes:
     {{- end}}
     options:
       usepodidentity: "{{ if $aadIdentityName }}true{{ else }}false{{ end}}"
-      subscriptionid: {{ $globals.subscriptionId | quote }}
       tenantid: {{ $globals.tenantId | quote }}
       keyvaultname: "{{ $vault }}{{ if not (default $info.excludeEnvironmentSuffix false) }}-{{ $globals.environment }}{{ end }}"
-      resourcegroup: "{{ required " .keyVaults.VAULT requires a .resourceGroup" $info.resourceGroup  }}{{ if not (default $info.excludeEnvironmentSuffix false) }}-{{ $globals.environment }}{{ end }}"
       keyvaultobjectnames: "{{range $index, $secret := $info.secrets }}{{if $index}};{{end}}{{ $secret }}{{ end }}"
       keyvaultobjecttypes: "{{range $index, $secret := $info.secrets }}{{if $index}};{{end}}secret{{ end }}"
 {{- end }}
