@@ -80,6 +80,7 @@ You most likely may override `image`, `applicationPort` and `environment` for yo
 | `aadIdentityName` | Identity to assign to the pod, can be used for accessing azure resources such as key vault | `nil` |
 | `prometheus.enabled` | Whether to add an annotation to the deployment to say scrape prometheus metrics | `false` |
 | `prometheus.path` | Path for prometheus metrics | `/metrics` |
+| `ingressClass` | Ingress class | `traefik` |
 
 ## Adding Azure Key Vault Secrets
 Key vault secrets are mounted to the container filesystem using what's called a [flexvolume](https://github.com/Azure/kubernetes-keyvault-flexvol)
