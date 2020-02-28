@@ -35,6 +35,12 @@ spec:
         runAsUser: 1000
         fsGroup: 1000
       {{- ( include "secretVolumes" . ) | indent 6 }}
+      {{- if and .Values.dnsConfig .Values.dnsConfig.ndots }}
+      dnsConfig:
+        options:
+          - name: ndots
+            value: {{ .Values.dnsConfig.ndots | quote }}
+      {{- end }}      
       containers:
       - image: {{ required "An image must be supplied to the chart" .Values.image }}
         name: {{ template "hmcts.releaseName" . }}

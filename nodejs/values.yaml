@@ -18,6 +18,8 @@ livenessPeriod: 15
 livenessFailureThreshold: 3
 applicationInsightsInstrumentKey: '00000000-0000-0000-0000-000000000000'
 imagePullPolicy: IfNotPresent
+dnsConfig:
+  ndots: "3"
 pdb:
   enabled: true
   maxUnavailable: 50%
