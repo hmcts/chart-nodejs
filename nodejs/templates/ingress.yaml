@@ -14,6 +14,7 @@ spec:
   - host: {{ tpl .Values.ingressHost $ }}
     http:
       paths:
+      {{- ( include "hmcts.additionalPathBasedRoutes" .) | indent 4 }}
       - path: /
         backend:
           serviceName: {{ template "hmcts.releaseName" . }}
@@ -23,6 +24,7 @@ spec:
   - host: {{ .Values.registerAdditionalDns.prefix }}-{{ tpl .Values.registerAdditionalDns.primaryIngressHost $ }}
     http:
       paths:
+      {{- ( include "hmcts.additionalPathBasedRoutes" .) | indent 4 }}
       - path: /
         backend:
           serviceName: {{ template "hmcts.releaseName" . }}

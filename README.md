@@ -82,6 +82,7 @@ You most likely may override `image`, `applicationPort` and `environment` for yo
 | `prometheus.enabled` | Whether to add an annotation to the deployment to say scrape prometheus metrics | `false` |
 | `prometheus.path` | Path for prometheus metrics | `/metrics` |
 | `ingressClass` | Ingress class | `traefik` |
+| `additionalPathBasedRoutes` | A map (Key - path, value - k8s servicename) containing path based rules for ingress host. Values can be templated | `nil` |
 
 ## Adding Azure Key Vault Secrets
 Key vault secrets are mounted to the container filesystem using what's called a [flexvolume](https://github.com/Azure/kubernetes-keyvault-flexvol)
