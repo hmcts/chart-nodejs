@@ -1,7 +1,7 @@
 apiVersion: v1
 description: A Helm chart for HMCTS nodejs apps
 name: nodejs
-version: 1.9.0
+version: 1.9.1
 keywords:
 - node
 - javascript
