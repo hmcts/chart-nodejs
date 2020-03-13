@@ -26,4 +26,6 @@ keyVaults:
     secrets:
       - microservicekey-ccd-admin
       - microservicekey-ccd-data
+additionalPathBasedRoutes:
+  "/test": "{{.Release.Name}}"
 
