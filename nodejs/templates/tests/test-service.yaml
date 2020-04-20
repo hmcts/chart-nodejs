@@ -20,11 +20,10 @@ spec:
         livenessStatusCode=$(wget -S http://$SERVICE_NAME/health/liveness 2>&1 | grep HTTP/ | awk 'END{print $2}');
         test "$livenessStatusCode" = "200"; echo $?;
     resources:
-      resources:
-        limits:
-          cpu: 2500m
-          memory: 1Gi
-        requests:
-          cpu: 25m
-          memory: 512Mi
+      limits:
+        cpu: 2500m
+        memory: 1Gi
+      requests:
+        cpu: 25m
+        memory: 512Mi
   restartPolicy: Never
