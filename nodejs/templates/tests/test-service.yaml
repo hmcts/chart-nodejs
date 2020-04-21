@@ -21,7 +21,7 @@ spec:
         test "$livenessStatusCode" = "200"; echo $?;
     resources:
       limits:
-        cpu: 2500m
+        cpu: 1
         memory: 1Gi
       requests:
         cpu: 25m
