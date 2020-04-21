@@ -16,13 +16,17 @@ environment:
 configmap:
   VAR_A: VALUE_A
   VAR_B: VALUE_B
-aadIdentityName: money-claims
+aadIdentityName: bsp
 keyVaults:
-  cmc:
+  bulk-scan:
     excludeEnvironmentSuffix: false
     secrets:
-      - citizen-oauth-client-secret
-      - cmc-s2s-secret
+      - idam-client-secret
+      - s2s-secret
+  s2s:
+    secrets:
+      - microservicekey-ccd-admin
+      - microservicekey-ccd-data
 additionalPathBasedRoutes:
   "/test": "{{.Release.Name}}"
 

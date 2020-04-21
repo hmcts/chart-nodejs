@@ -17,8 +17,10 @@ healthcheck.addTo(app,
 
 function checkForSecrets() {
   try {
-    config.get('secrets.cmc.citizen-oauth-client-secret')
-    config.get('secrets.cmc.cmc-s2s-secret')
+    config.get('secrets.bulk-scan.idam-client-secret')
+    config.get('secrets.bulk-scan.s2s-secret')
+    config.get('secrets.s2s.microservicekey-ccd-admin')
+    config.get('secrets.s2s.microservicekey-ccd-data')
     return true
   } catch (error) {
     console.log(`ERROR:` + error)
