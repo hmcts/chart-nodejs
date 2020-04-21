@@ -1,4 +1,4 @@
-FROM hmcts.azurecr.io/hmcts/base/node/stretch-slim-lts-8
+FROM hmctspublic.azurecr.io/base/node:12-alpine as base
 USER hmcts
 COPY package.json yarn.lock ./
 ADD ./config "/config"
