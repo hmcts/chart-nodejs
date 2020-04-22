@@ -3,11 +3,11 @@ CHART := nodejs
 RELEASE := chart-${CHART}-release
 NAMESPACE := chart-tests
 TEST := ${RELEASE}-${CHART}-test-service
-ACR := hmcts
+ACR := hmctspublic
 ACR_SUBSCRIPTION := DCD-CNP-DEV
 AKS_RESOURCE_GROUP := cnp-aks-rg
 AKS_CLUSTER := cnp-aks-cluster
-TEST_IMAGE_NAME := hmcts/chart-nodejs-testapp
+TEST_IMAGE_NAME := hmctspubic/chart-nodejs-testapp
 
 help:
 	@echo ""
@@ -26,14 +26,14 @@ setup: ## Configures your Azure ACR with sandbox credentials for testing purpose
 	az aks get-credentials --overwrite-existing --resource-group ${AKS_RESOURCE_GROUP} --name ${AKS_CLUSTER} 
 
 clean: ## Removes the installed chart
-	-helm delete --purge ${RELEASE}
+	-helm delete ${RELEASE}
 	-kubectl delete --namespace ${NAMESPACE} pod/${TEST}
 
 lint: ## Lints the chart
 	helm lint ${CHART}
 
 deploy: ## Installs the chart with a default image
-	helm install ${CHART} --name ${RELEASE} --namespace ${NAMESPACE} -f ci-values.yaml --wait --timeout 60
+	helm install ${CHART} ${RELEASE} --namespace ${NAMESPACE} -f ci-values.yaml --wait --timeout 60s
 
 test: ## Tests the installed chart
 	helm test ${RELEASE}
