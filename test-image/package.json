@@ -16,10 +16,10 @@
     "node": ">=8.0.0"
   },
   "dependencies": {
-    "@hmcts/nodejs-healthcheck": "1.5.1",
-    "@hmcts/properties-volume": "0.0.8",
-    "config": "^3.0.1",
-    "express": "^4.16.4",
-    "js-yaml": "^3.13.1"
+    "@hmcts/nodejs-healthcheck": "1.7.0",
+    "@hmcts/properties-volume": "0.0.9",
+    "config": "^3.3.1",
+    "express": "^4.17.1",
+    "js-yaml": "^3.14.0"
   }
 }

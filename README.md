@@ -6,6 +6,8 @@ Nodejs Applications Helm chart.
 
 We will take small PRs and small features to this chart but more complicated needs should be handled in your own chart.
 
+Note: /health/readiness and /health/liveness exposed by [nodejs-healthcheck](https://github.com/hmcts/nodejs-healthcheck) are used for readiness and liveness checks.
+
 ## Example configuration
 
 ```yaml
@@ -62,7 +64,7 @@ You most likely may override `image`, `applicationPort` and `environment` for yo
 | `registerAdditionalDns.enabled` | If you want to use this chart as a secondary dependency - e.g. providing a frontend to a backend, and the backend is using primary ingressHost DNS mapping. | `false` |
 | `registerAdditionalDns.primaryIngressHost`| The hostname for primary chart. It supports templating, Example : {{.Release.Name}}.service.core-compute-preview.internal  | `nil` |
 | `registerAdditionalDns.prefix` | DNS prefix for this chart - will resolve as: `prefix-{registerAdditionalDns.primaryIngressHost}` | `nil` |  
-| `readinessPath` | Path of HTTP readiness probe| `/health` |
+| `readinessPath` | Path of HTTP readiness probe| `/health/readiness` |
 | `readinessDelay` | Readiness probe inital delay (seconds) | `5` |
 | `readinessTimeout` | Readiness probe timeout (seconds) | `3`|
 | `readinessPeriod` | Readiness probe period (seconds) | `15`|

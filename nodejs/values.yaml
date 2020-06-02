@@ -7,7 +7,7 @@ memoryRequests: 64Mi
 cpuRequests: 25m
 memoryLimits: 512Mi
 cpuLimits: 500m
-readinessPath: /health
+readinessPath: /health/readiness
 readinessDelay: 5
 readinessTimeout: 3
 readinessPeriod: 15
