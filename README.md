@@ -59,7 +59,7 @@ You most likely may override `image`, `applicationPort` and `environment` for yo
 | `memoryLimits` | Memory limits | `256Mi` |
 | `cpuLimits` | CPU limits | `500m` |
 | `ingressHost` | Host for ingress controller to map the container to. It supports templating, Example : {{.Release.Name}}.service.core-compute-preview.internal| `nil` |
-| `registerAdditionalDns.enabled` | If you want to use this chart as a secondary dependency - e.g. providing a frontend to a backend, and the backend is using primary ingressHost DNS mapping. Note: you will also need to define: `ingressIP: ${INGRESS_IP}` and `consulIP: ${CONSUL_LB_IP}` - this will be populated by pipeline | `false` |
+| `registerAdditionalDns.enabled` | If you want to use this chart as a secondary dependency - e.g. providing a frontend to a backend, and the backend is using primary ingressHost DNS mapping. | `false` |
 | `registerAdditionalDns.primaryIngressHost`| The hostname for primary chart. It supports templating, Example : {{.Release.Name}}.service.core-compute-preview.internal  | `nil` |
 | `registerAdditionalDns.prefix` | DNS prefix for this chart - will resolve as: `prefix-{registerAdditionalDns.primaryIngressHost}` | `nil` |  
 | `readinessPath` | Path of HTTP readiness probe| `/health` |
@@ -73,7 +73,7 @@ You most likely may override `image`, `applicationPort` and `environment` for yo
 | `livenessFailureThreshold`| Liveness failure threshold | `3` |
 | `keyVaults`| This section is about adding the keyvault secrets to the file system see [Adding Azure Key Vault Secrets]()| none |
 | `secrets`                  | Mappings of environment variables to service objects or pre-configured kubernetes secrets |  nil |
-| `applicationInsightsInstrumentKey` | Instrumentation Key for App Insights , It is mapped to `APPINSIGHTS_INSTRUMENTATIONKEY` as environment variable | `00000000-0000-0000-0000-000000000000` |
+| `devApplicationInsightsInstrumentKey` | Instrumentation Key for App Insights , It is mapped to `AZURE_APPLICATIONINSIGHTS_INSTRUMENTATIONKEY` as environment variable when global.devMode is set to true | `00000000-0000-0000-0000-000000000000`
 | `dnsConfig.ndots` | Threshold for the number of dots which must appear in a name given to a dns query before an initial absolute query will be made | `3` |
 | `pdb.enabled` | To enable PodDisruptionBudget on the pods for handling disruptions | `true` |
 | `pdb.maxUnavailable` |  To configure the number of pods from the set that can be unavailable after the eviction. It can be either an absolute number or a percentage. pdb.minAvailable takes precedence over this if not nil | `50%` means evictions are allowed as long as no more than 50% of the desired replicas are unhealthy. It will allow disruption if you have only 1 replica.|
