@@ -6,7 +6,7 @@ Nodejs Applications Helm chart.
 
 We will take small PRs and small features to this chart but more complicated needs should be handled in your own chart.
 
-Note : /health/readiness and /health/liveness exposed by [nodejs-healthcheck](https://github.com/hmcts/nodejs-healthcheck) are used for readiness and liveness checks.
+Note: /health/readiness and /health/liveness exposed by [nodejs-healthcheck](https://github.com/hmcts/nodejs-healthcheck) are used for readiness and liveness checks.
 
 ## Example configuration
 
