@@ -16,7 +16,8 @@ livenessDelay: 5
 livenessTimeout: 3
 livenessPeriod: 15
 livenessFailureThreshold: 3
-applicationInsightsInstrumentKey: '00000000-0000-0000-0000-000000000000'
+devApplicationInsightsInstrumentKeyName: APPINSIGHTS_INSTRUMENTATIONKEY
+devApplicationInsightsInstrumentKey: '00000000-0000-0000-0000-000000000000'
 imagePullPolicy: IfNotPresent
 dnsConfig:
   ndots: "3"
