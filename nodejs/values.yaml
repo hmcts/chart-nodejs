@@ -7,6 +7,10 @@ memoryRequests: 64Mi
 cpuRequests: 25m
 memoryLimits: 512Mi
 cpuLimits: 500m
+devmemoryRequests: 64Mi
+devcpuRequests: 25m
+devmemoryLimits: 512Mi
+devcpuLimits: 500m
 readinessPath: /health/readiness
 readinessDelay: 5
 readinessTimeout: 3
