@@ -14,5 +14,5 @@ sources:
 icon: https://nodejs.org/static/images/logos/nodejs-new-pantone-black.png
 dependencies:
   - name: library
-    version: ~0.2.3
+    version: 0.2.3
     repository: https://hmctspublic.azurecr.io/helm/v1/repo/
