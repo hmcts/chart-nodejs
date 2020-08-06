@@ -73,6 +73,7 @@ You most likely may override `image`, `applicationPort` and `environment` for yo
 | `livenessTimeout` | Liveness probe timeout (seconds) | `3` |
 | `livenessPeriod` | Liveness probe period (seconds) | `15` |
 | `livenessFailureThreshold`| Liveness failure threshold | `3` |
+| `disableKeyVaults`         | Disables key vault support, useful in pull requests if you don't need any secrets (usually because you're using an embedded DB) | nil |
 | `keyVaults`| This section is about adding the keyvault secrets to the file system see [Adding Azure Key Vault Secrets]()| none |
 | `secrets`                  | Mappings of environment variables to service objects or pre-configured kubernetes secrets |  nil |
 | `devApplicationInsightsInstrumentKey` | Instrumentation Key for App Insights , It is mapped to `AZURE_APPLICATIONINSIGHTS_INSTRUMENTATIONKEY` as environment variable when global.devMode is set to true | `00000000-0000-0000-0000-000000000000`
