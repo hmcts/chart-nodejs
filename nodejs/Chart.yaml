@@ -6,13 +6,13 @@ name: nodejs
 version: 0.1.0 # Do not change
 appVersion: 0.1.0 # Do not change
 keywords:
-- node
-- javascript
-- nodejs
+  - node
+  - javascript
+  - nodejs
 sources:
   - https://github.com/hmcts/chart-nodejs
 icon: https://nodejs.org/static/images/logos/nodejs-new-pantone-black.png
 dependencies:
   - name: library
-    version: 0.3.0
+    version: 0.4.1
     repository: https://hmctspublic.azurecr.io/helm/v1/repo/
