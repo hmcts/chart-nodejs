@@ -35,3 +35,6 @@ prometheus:
   enabled: false
   path: /metrics
 ingressClass: traefik
+
+autoscaling:
+  enabled: false
