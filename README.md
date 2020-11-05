@@ -41,6 +41,18 @@ nodejs:
   applicationInsightsInstrumentKey: some-key
 ```
 
+### HPA Horizontal Pod Autoscaler
+To adjust the number of pods in a deployment depending on CPU utilization AKS supports horizontal pod autoscaling.
+To enable horizontal pod autoscaling you can enable the autoscaling section. 
+https://docs.microsoft.com/en-us/azure/aks/tutorial-kubernetes-scale#autoscale-pods
+
+```yaml
+autoscaling:        # Default is false
+  enabled: true 
+  maxReplicas: 5    # Required setting
+  targetCPUUtilizationPercentage: 80 # Default is 80% target CPU utilization
+```
+
 ## Configuration
 
 The following table lists the configurable parameters of the nodejs chart and their default values.
@@ -86,6 +98,9 @@ You most likely may override `image`, `applicationPort` and `environment` for yo
 | `prometheus.path` | Path for prometheus metrics | `/metrics` |
 | `ingressClass` | Ingress class | `traefik` |
 | `additionalPathBasedRoutes` | A map (Key - path, value - k8s servicename) containing path based rules for ingress host. Values can be templated | `nil` |
+| `autoscaling.enabled` | Enable horizontal pod autoscaling. | `false` |
+| `autoscaling.maxReplicas` | Max replica count. Required if autoscaling.enabled is true | `` |
+| `autoscaling.targetCPUUtilizationPercentage` | target CPU utilization | `80` |
 
 ## Adding Azure Key Vault Secrets
 Key vault secrets are mounted to the container filesystem using what's called a [flexvolume](https://github.com/Azure/kubernetes-keyvault-flexvol)
