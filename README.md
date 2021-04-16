@@ -8,6 +8,15 @@ We will take small PRs and small features to this chart but more complicated nee
 
 Note: /health/readiness and /health/liveness exposed by [nodejs-healthcheck](https://github.com/hmcts/nodejs-healthcheck) are used for readiness and liveness checks.
 
+This chart adds below templates from [chart-library](https://github.com/hmcts/chart-library/) based on the chosen configuration:
+
+- [Deployment](https://github.com/hmcts/chart-library/tree/master#deployment)
+- [Horizontal Pod Auto Scaler](https://github.com/hmcts/chart-library/tree/master#hpa-horizontal-pod-auto-scaler)
+- [Ingress](https://github.com/hmcts/chart-library/tree/master#ingress)
+- [Pod Disruption Budget](https://github.com/hmcts/chart-library/tree/master#pod-disruption-budget)
+- [Service](https://github.com/hmcts/chart-library/tree/master#service)
+- [Deployment Tests](https://github.com/hmcts/chart-library/tree/master#smoke-and-functional-tests)
+
 ## Example configuration
 
 ```yaml
@@ -53,6 +62,13 @@ autoscaling:        # Default is false
   targetCPUUtilizationPercentage: 80 # Default is 80% target CPU utilization
 ```
 
+## Language Settings
+Language has been set to none on this chart to enable us to update this but avoid every team having to do a changeover from chart-nodejs to chart-base, 
+any new apps are expected to use chart-base with language set to java/nodejs etc.
+```yaml
+language: none
+```
+
 ## Configuration
 
 The following table lists the configurable parameters of the nodejs chart and their default values.
@@ -66,6 +82,7 @@ You most likely may override `image`, `applicationPort` and `environment` for yo
 | `useInterpodAntiAffinity` | Always schedule replicas on different nodes | `false` | 
 | `image` | *REQUIRED*: Full image url ('${IMAGE}' in the values.template.yml ) | |
 | `imagePullPolicy` | Kubernetes container image pull policy | `IfNotPresent` |
+| `language` | To select sensible defaults based on language | `none` |
 | `environment` | A map containing all environment values you wish to set. Values can be templated | `nil` |
 | `configmap` | A config map, can be used for environment specific config | `nil` |
 | `memoryRequests`| Requests for memory | `64Mi`|
