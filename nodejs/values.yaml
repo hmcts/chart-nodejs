@@ -3,6 +3,7 @@ replicas: 1
 useInterpodAntiAffinity: true
 registerAdditionalDns:
   enabled: false
+language: none
 memoryRequests: 64Mi
 cpuRequests: 25m
 memoryLimits: 512Mi
