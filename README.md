@@ -11,6 +11,7 @@ Note: /health/readiness and /health/liveness exposed by [nodejs-healthcheck](htt
 This chart adds below templates from [chart-library](https://github.com/hmcts/chart-library/) based on the chosen configuration:
 
 - [Deployment](https://github.com/hmcts/chart-library/tree/master#deployment)
+- [Key Vault Secrets](https://github.com/hmcts/chart-library#keyvault-secret-csi-volumes)
 - [Horizontal Pod Auto Scaler](https://github.com/hmcts/chart-library/tree/master#hpa-horizontal-pod-auto-scaler)
 - [Ingress](https://github.com/hmcts/chart-library/tree/master#ingress)
 - [Pod Disruption Budget](https://github.com/hmcts/chart-library/tree/master#pod-disruption-budget)
@@ -63,8 +64,8 @@ autoscaling:        # Default is false
 ```
 
 ## Language Settings
-Language has been set to none on this chart to enable us to update this but avoid every team having to do a changeover from chart-nodejs to chart-base, 
-any new apps are expected to use chart-base with language set to java/nodejs etc.
+Language has been set to none on this chart to allow teams to continue to use this chart,
+however any new apps are expected to use chart-base with language set to java/nodejs etc.
 ```yaml
 language: none
 ```
