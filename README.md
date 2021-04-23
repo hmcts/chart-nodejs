@@ -63,13 +63,6 @@ autoscaling:        # Default is false
   targetCPUUtilizationPercentage: 80 # Default is 80% target CPU utilization
 ```
 
-## Language Settings
-Language has been set to none on this chart to allow teams to continue to use this chart,
-however any new apps are expected to use chart-base with language set to java/nodejs etc.
-```yaml
-language: none
-```
-
 ## Development and Testing
 
 Default configuration (e.g. default image and ingress host) is setup for sandbox. This is suitable for local development and testing.
