@@ -71,7 +71,7 @@ nodejs:
   startupPeriod: 120
   startupFailureThreshold: 3
 ```
-Also see example [Pull Request](https://github.com/hmcts/cnp-flux-config/pull/12922/files).
+Also see example [pull request](https://github.com/hmcts/cnp-flux-config/pull/12922/files).
 
 
 ### HPA Horizontal Pod Autoscaler
