@@ -51,6 +51,29 @@ nodejs:
   applicationInsightsInstrumentKey: some-key
 ```
 
+## Startup probes
+Startup probes are defined in the [library template](https://github.com/hmcts/chart-library/tree/dtspo-2201-startup-probes#startup-probes) and should be configured for slow starting applications.
+The default values below (defined in the chart) should be sufficient for most applications but can be overriden as required.
+```yaml
+startupPath: '/health/liveness'
+startupDelay: 5
+startupTimeout: 3
+startupPeriod: 10
+startupFailureThreshold: 3
+```
+
+To use startup probes for a slow starting application, configure the value of `(startupFailureThreshold x startupPeriodSeconds)` to cover the longest startup time required by the application.
+
+### Example configuration
+The below example will allow the application 360 seconds to complete startup.  
+```yaml
+nodejs:
+  startupPeriod: 120
+  startupFailureThreshold: 3
+```
+Also see example [pull request](https://github.com/hmcts/cnp-flux-config/pull/12922/files).
+
+
 ### HPA Horizontal Pod Autoscaler
 To adjust the number of pods in a deployment depending on CPU utilization AKS supports horizontal pod autoscaling.
 To enable horizontal pod autoscaling you can enable the autoscaling section. 
