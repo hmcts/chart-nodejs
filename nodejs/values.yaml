@@ -24,7 +24,7 @@ startupPath: '/health/liveness'
 startupDelay: 5
 startupTimeout: 3
 startupPeriod: 10
-startupFailureThreshold: 3
+startupFailureThreshold: 15
 saEnabled: true
 devApplicationInsightsInstrumentKeyName: APPINSIGHTS_INSTRUMENTATIONKEY
 devApplicationInsightsInstrumentKey: '00000000-0000-0000-0000-000000000000'
