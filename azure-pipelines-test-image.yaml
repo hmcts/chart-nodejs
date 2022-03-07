@@ -1,0 +1,34 @@
+name: Test image build and push CI Pipeline
+
+pr:
+  branches:
+    include:
+      - master
+  paths:
+    include:
+      - test-image
+
+resources:
+  repositories:
+    - repository: cnp-library
+      type: github
+      name: hmcts/cnp-azuredevops-libraries
+      endpoint: hmcts
+
+variables:
+  - name: agentPool
+    value: ubuntu-latest
+  - name: acrName
+    value: hmctspublic
+  - name: serviceConnection
+    value: DCD-CFTAPPS-DEV
+
+jobs:
+  - job: BuildAndPush
+    pool:
+      vmImage: ${{ variables.agentPool }}
+    steps:
+      - template: steps/acr-build.yaml@cnp-library
+        parameters:
+          serviceConnection: $(serviceConnection)
+          acrName: $(acrName)

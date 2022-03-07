@@ -3,50 +3,69 @@ name: Nodejs Chart CI Pipeline
 trigger:
   branches:
     include:
-    - refs/tags/*
+      - refs/tags/*
 
 pr:
   branches:
     include:
-    - master
+      - master
 
 resources:
   repositories:
-  - repository: cnp-library
-    type: github
-    name: hmcts/cnp-azuredevops-libraries
-    endpoint: hmcts
+    - repository: cnp-library
+      type: github
+      name: hmcts/cnp-azuredevops-libraries
+      endpoint: hmcts
 
 variables:
   - name: agentPool
     value: ubuntu-latest
 
 jobs:
-- job: Validate
-  pool:
-    vmImage: ${{ variables.agentPool }}
-  steps:
-  - template: steps/charts/validate.yaml@cnp-library
-    parameters:
-      chartNamespace: chart-tests
-      chartName: nodejs
-      chartReleaseName: chart-nodejs-ci-test
+  - job: BuildAndPushTestImage
+    condition:
+      eq(variables['Build.Reason'], 'PullRequest')
+      # or(
+      #   eq(variables['Build.Reason'], 'PullRequest'),
+      #   eq(variables['Build.SourceBranch'], 'master')
+      # )
+    pool:
+      vmImage: ${{ variables.agentPool }}
+    steps:
+      - template: steps/acr-build.yaml@cnp-library
+        parameters:
+          serviceConnection: $(serviceConnection)
+          acrName: $(acrName)
+      - task: Bash@3
+        inputs:
+          targetType: "inline"
+          script: |
+            sed -i "s/testapp$/testapp:$(System.PullRequest.PullRequestNumber)/g" ci-values.yaml
 
-- job: Release
-  # Make sure we are on the master branch with a tag
-  # to trigger this job
-  condition: >
-    and(
-        succeeded(),
-        startsWith(variables['Build.SourceBranch'], 'refs/tags/')
-      )
-  dependsOn: Validate
-  pool:
-    vmImage: ${{ variables.agentPool }}
-  steps:
-  - template: steps/charts/release.yaml@cnp-library
-    parameters:
-      chartNamespace: chart-tests
-      chartName: nodejs
-      chartReleaseName: chart-nodejs
+  - job: Validate
+    pool:
+      vmImage: ${{ variables.agentPool }}
+    steps:
+      - template: steps/charts/validate.yaml@cnp-library
+        parameters:
+          chartNamespace: chart-tests
+          chartName: nodejs
+          chartReleaseName: chart-nodejs-ci-test
 
+  - job: Release
+    # Make sure we are on the master branch with a tag
+    # to trigger this job
+    condition: >
+      and(
+          succeeded(),
+          startsWith(variables['Build.SourceBranch'], 'refs/tags/')
+        )
+    dependsOn: Validate
+    pool:
+      vmImage: ${{ variables.agentPool }}
+    steps:
+      - template: steps/charts/release.yaml@cnp-library
+        parameters:
+          chartNamespace: chart-tests
+          chartName: nodejs
+          chartReleaseName: chart-nodejs
