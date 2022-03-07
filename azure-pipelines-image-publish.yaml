@@ -1,4 +1,12 @@
-name: Test image build and push CI Pipeline
+name: Nodejs testapp image build and push Pipeline
+
+trigger:
+  branches:
+    include:
+      - master
+  paths:
+    include:
+      - test-image
 
 pr:
   branches:
@@ -18,13 +26,9 @@ resources:
 variables:
   - name: agentPool
     value: ubuntu-latest
-  - name: acrName
-    value: hmctspublic
-  - name: serviceConnection
-    value: DCD-CFTAPPS-DEV
 
 jobs:
-  - job: BuildAndPush
+  - job: BuildAndPushTestImage
     pool:
       vmImage: ${{ variables.agentPool }}
     steps:
