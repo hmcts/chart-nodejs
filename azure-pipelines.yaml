@@ -20,6 +20,10 @@ resources:
 variables:
   - name: agentPool
     value: ubuntu-latest
+  - name: acrName
+    value: hmctspublic
+  - name: serviceConnection
+    value: DCD-CFTAPPS-DEV
 
 jobs:
   - job: BuildAndPushTestImage
