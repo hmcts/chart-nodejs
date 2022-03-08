@@ -48,6 +48,7 @@ jobs:
       vmImage: ${{ variables.agentPool }}
     steps:
       - checkout: self
+        clean: true
 
       - task: Bash@3
         condition: eq(variables['Build.Reason'], 'PullRequest')
