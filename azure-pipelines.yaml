@@ -46,6 +46,7 @@ jobs:
     pool:
       vmImage: ${{ variables.agentPool }}
     steps:
+      # Look at only triggering this when test-image dir changes
       - ${{ if eq(variables['Build.Reason'], 'PullRequest') }}:
           - template: steps/acr-build.yaml@cnp-library
             parameters:
