@@ -46,7 +46,7 @@ jobs:
           targetType: "inline"
           workingDirectory: $(repoName)
           script: |
-            if git diff --name-only master..$(Build.SourceBranchName) --  | grep -q '^test-image/.*'; then
+            if git diff --name-only master..$(System.PullRequest.SourceBranch) --  | grep -q '^test-image/.*'; then
               echo '##vso[task.setvariable variable=testImageChanged]true'
             else
               echo '##vso[task.setvariable variable=testImageChanged]false' 
