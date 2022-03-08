@@ -40,6 +40,7 @@ jobs:
   #   steps:
   #     - template: steps/acr-build.yaml@cnp-library
   #       parameters:
+
   #         serviceConnection: $(serviceConnection)
 
   - job: Validate
