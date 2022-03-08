@@ -55,14 +55,13 @@ jobs:
         inputs:
           targetType: "inline"
           script: |
-            echo "pwd: `pwd`"
-            echo "ls: `ls`"
             sed -E -i "s/testapp:(.*)$/testapp:$(System.PullRequest.PullRequestNumber)/g" $(System.DefaultWorkingDirectory)/$(repoName)/ci-values.yaml
       - template: steps/charts/validate.yaml@cnp-library
         parameters:
           chartNamespace: chart-tests
           chartName: nodejs
           chartReleaseName: chart-nodejs-ci-test
+          chartPath: $(repoName)
 
   - job: Release
     # Make sure we are on the master branch with a tag
