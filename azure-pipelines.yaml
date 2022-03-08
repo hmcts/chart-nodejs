@@ -27,8 +27,8 @@ variables:
     value: rpe-acr-prod-rg
   - name: serviceConnection
     value: azurerm-prod
-  # - name: ACRBuildPath
-  #   value: test-image
+  - name: buildPath
+    value: chart-nodejs/test-image
   - name: repoName
     value: chart-nodejs
 
