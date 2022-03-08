@@ -22,6 +22,8 @@ variables:
     value: ubuntu-latest
   - name: acrName
     value: hmctspublic
+  - name: acrResourceGroup
+    value: cnp-aks-rg
   - name: serviceConnection
     value: DCD-CFTAPPS-DEV
 
