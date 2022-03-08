@@ -44,7 +44,7 @@ jobs:
             sed -i "s/testapp$/testapp:$(System.PullRequest.PullRequestNumber)/g" ci-values.yaml
 
   - job: Validate
-    condition: succeeded()
+    dependsOn: BuildAndPushTestImage
     pool:
       vmImage: ${{ variables.agentPool }}
     steps:
