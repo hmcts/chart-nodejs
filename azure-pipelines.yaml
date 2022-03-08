@@ -39,7 +39,6 @@ jobs:
       - template: steps/acr-build.yaml@cnp-library
         parameters:
           serviceConnection: $(serviceConnection)
-          acrName: $(acrName)
       - task: Bash@3
         inputs:
           targetType: "inline"
