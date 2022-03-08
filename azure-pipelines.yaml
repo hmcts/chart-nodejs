@@ -50,7 +50,9 @@ jobs:
         inputs:
           targetType: "inline"
           script: |
-            sed -i "s/testapp$/testapp:$(System.PullRequest.PullRequestNumber)/g" ci-values.yaml
+            echo "pwd: `pwd`"
+            echo "ls: `ls`"
+            sed -i "s/testapp$/testapp:$(System.PullRequest.PullRequestNumber)/g" $(System.DefaultWorkingDirectory)/ci-values.yaml
       - template: steps/charts/validate.yaml@cnp-library
         parameters:
           chartNamespace: chart-tests
