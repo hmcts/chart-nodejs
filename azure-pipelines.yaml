@@ -52,7 +52,7 @@ jobs:
               echo '##vso[task.setvariable variable=testImageChanged]false' 
             fi
       # Look at only triggering this when test-image dir changes
-      - ${{ if and(eq(variables['Build.Reason'], 'PullRequest'), eq(variables['testImageChanged'], 'true') }}:
+      - ${{ if and(eq(variables['Build.Reason'], 'PullRequest'), eq(variables['testImageChanged'], 'true')) }}:
           - template: steps/acr-build.yaml@cnp-library
             parameters:
               serviceConnection: $(serviceConnection)
