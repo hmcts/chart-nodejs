@@ -55,12 +55,12 @@ jobs:
             parameters:
               serviceConnection: $(serviceConnection)
 
-      - task: Bash@3
-        condition: eq(variables['Build.Reason'], 'PullRequest')
-        inputs:
-          targetType: "inline"
-          script: |
-            sed -E -i "s/testapp:(.*)$/testapp:$(System.PullRequest.PullRequestNumber)/g" $(System.DefaultWorkingDirectory)/$(repoName)/ci-values.yaml
+      # - task: Bash@3
+      #   condition: eq(variables['Build.Reason'], 'PullRequest')
+      #   inputs:
+      #     targetType: "inline"
+      #     script: |
+      #       sed -E -i "s/testapp:(.*)$/testapp:$(System.PullRequest.PullRequestNumber)/g" $(System.DefaultWorkingDirectory)/$(imageRepo)/ci-values.yaml
       - template: steps/charts/validate.yaml@cnp-library
         parameters:
           chartNamespace: chart-tests
@@ -68,7 +68,7 @@ jobs:
           chartReleaseName: chart-nodejs-ci-test
           chartPath: $(repoName)/
           valuesFile: $(repoName)/ci-values.yaml
-          additionalHelmArgs: --set image=hmctspublic.azurecr.io/chart-nodejs/testapp:pr-$(System.PullRequest.PullRequestNumber)
+          additionalHelmArgs: --set image=hmctspublic.azurecr.io/hmcts/chart-nodejs/testapp:pr-$(System.PullRequest.PullRequestNumber)
   - job: Release
     # Make sure we are on the master branch with a tag
     # to trigger this job
