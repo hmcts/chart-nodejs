@@ -43,7 +43,6 @@ jobs:
   #         serviceConnection: $(serviceConnection)
 
   - job: Validate
-    dependsOn: BuildAndPushTestImage
     pool:
       vmImage: ${{ variables.agentPool }}
     steps:
