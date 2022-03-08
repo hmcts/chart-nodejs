@@ -23,9 +23,9 @@ variables:
   - name: acrName
     value: hmctspublic
   - name: acrResourceGroup
-    value: cnp-aks-rg
+    value: rpe-acr-prod-rg
   - name: serviceConnection
-    value: DCD-CFTAPPS-DEV
+    value: DCD-CFTAPPS-PROD
 
 jobs:
   - job: BuildAndPushTestImage
