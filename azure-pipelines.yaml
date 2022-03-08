@@ -39,17 +39,18 @@ jobs:
       - template: steps/acr-build.yaml@cnp-library
         parameters:
           serviceConnection: $(serviceConnection)
-      - task: Bash@3
-        inputs:
-          targetType: "inline"
-          script: |
-            sed -i "s/testapp$/testapp:$(System.PullRequest.PullRequestNumber)/g" ci-values.yaml
 
   - job: Validate
     dependsOn: BuildAndPushTestImage
     pool:
       vmImage: ${{ variables.agentPool }}
     steps:
+      - task: Bash@3
+        condition: eq(variables['Build.Reason'], 'PullRequest')
+        inputs:
+          targetType: "inline"
+          script: |
+            sed -i "s/testapp$/testapp:$(System.PullRequest.PullRequestNumber)/g" ci-values.yaml
       - template: steps/charts/validate.yaml@cnp-library
         parameters:
           chartNamespace: chart-tests
