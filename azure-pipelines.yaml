@@ -29,6 +29,8 @@ variables:
     value: azurerm-prod
   - name: ACRBuildPath
     value: test-image
+  - name: repoName
+    value: chart-nodejs
 
 jobs:
   - job: BuildAndPushTestImage
@@ -54,7 +56,7 @@ jobs:
           script: |
             echo "pwd: `pwd`"
             echo "ls: `ls`"
-            sed -E -i "s/testapp:(.*)$/testapp:$(System.PullRequest.PullRequestNumber)/g" $(System.DefaultWorkingDirectory)/$(Build.Repository.Name)/ci-values.yaml
+            sed -E -i "s/testapp:(.*)$/testapp:$(System.PullRequest.PullRequestNumber)/g" $(System.DefaultWorkingDirectory)/$(repoName)/ci-values.yaml
       - template: steps/charts/validate.yaml@cnp-library
         parameters:
           chartNamespace: chart-tests
