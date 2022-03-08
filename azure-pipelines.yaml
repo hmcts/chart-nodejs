@@ -66,8 +66,8 @@ jobs:
           chartNamespace: chart-tests
           chartName: nodejs
           chartReleaseName: chart-nodejs-ci-test
-          # chartPath: $(repoName)/
-          # valuesFile: $(repoName)/ci-values.yaml
+          chartPath: $(repoName)/
+          valuesFile: $(repoName)/ci-values.yaml
 
   - job: Release
     # Make sure we are on the master branch with a tag
