@@ -29,12 +29,7 @@ variables:
 
 jobs:
   - job: BuildAndPushTestImage
-    condition:
-      eq(variables['Build.Reason'], 'PullRequest')
-      # or(
-      #   eq(variables['Build.Reason'], 'PullRequest'),
-      #   eq(variables['Build.SourceBranch'], 'master')
-      # )
+    condition: eq(variables['Build.Reason'], 'PullRequest')
     pool:
       vmImage: ${{ variables.agentPool }}
     steps:
@@ -49,6 +44,7 @@ jobs:
             sed -i "s/testapp$/testapp:$(System.PullRequest.PullRequestNumber)/g" ci-values.yaml
 
   - job: Validate
+    condition: succeeded()
     pool:
       vmImage: ${{ variables.agentPool }}
     steps:
