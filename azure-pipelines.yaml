@@ -68,7 +68,7 @@ jobs:
           chartReleaseName: chart-nodejs-ci-test
           chartPath: $(repoName)/
           valuesFile: $(repoName)/ci-values.yaml
-          additionalHelmArgs: --set image=hmctspublic.azurecr.io/chart-nodejs/testapp:$(System.PullRequest.PullRequestNumber)
+          additionalHelmArgs: --set image=hmctspublic.azurecr.io/chart-nodejs/testapp:pr-$(System.PullRequest.PullRequestNumber)
   - job: Release
     # Make sure we are on the master branch with a tag
     # to trigger this job
