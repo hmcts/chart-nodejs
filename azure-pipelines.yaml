@@ -61,7 +61,7 @@ jobs:
           chartNamespace: chart-tests
           chartName: nodejs
           chartReleaseName: chart-nodejs-ci-test
-          chartPath: $(repoName)
+          chartPath: $(repoName)/
 
   - job: Release
     # Make sure we are on the master branch with a tag
