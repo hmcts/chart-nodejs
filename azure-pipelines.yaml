@@ -33,22 +33,24 @@ variables:
     value: chart-nodejs
 
 jobs:
-  - job: BuildAndPushTestImage
-    condition: eq(variables['Build.Reason'], 'PullRequest')
-    pool:
-      vmImage: ${{ variables.agentPool }}
-    steps:
-      - template: steps/acr-build.yaml@cnp-library
-        parameters:
-          serviceConnection: $(serviceConnection)
+  # - job: BuildAndPushTestImage
+  #   condition: eq(variables['Build.Reason'], 'PullRequest')
+  #   pool:
+  #     vmImage: ${{ variables.agentPool }}
+  #   steps:
+  #     - template: steps/acr-build.yaml@cnp-library
+  #       parameters:
+  #         serviceConnection: $(serviceConnection)
 
   - job: Validate
     dependsOn: BuildAndPushTestImage
     pool:
       vmImage: ${{ variables.agentPool }}
     steps:
-      - checkout: self
-        clean: true
+      - ${{ if eq(variables['Build.Reason'], 'PullRequest') }}:
+          - template: steps/acr-build.yaml@cnp-library
+            parameters:
+              serviceConnection: $(serviceConnection)
 
       - task: Bash@3
         condition: eq(variables['Build.Reason'], 'PullRequest')
@@ -61,8 +63,8 @@ jobs:
           chartNamespace: chart-tests
           chartName: nodejs
           chartReleaseName: chart-nodejs-ci-test
-          chartPath: $(repoName)/
-          valuesFile: $(repoName)/ci-values.yaml
+          # chartPath: $(repoName)/
+          # valuesFile: $(repoName)/ci-values.yaml
 
   - job: Release
     # Make sure we are on the master branch with a tag
@@ -80,5 +82,4 @@ jobs:
         parameters:
           chartNamespace: chart-tests
           chartName: nodejs
-
           chartReleaseName: chart-nodejs
