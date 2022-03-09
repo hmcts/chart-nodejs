@@ -61,6 +61,7 @@ jobs:
   - job: Release
     # Make sure we are on the master branch with a tag
     # to trigger this job
+
     condition: >
       and(
           succeeded(),
