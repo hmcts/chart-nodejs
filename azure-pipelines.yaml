@@ -33,6 +33,8 @@ variables:
     value: chart-nodejs
   - name: valuesFile
     value: $(repoName)/ci-values.yaml
+  - name: testAppImage
+    value: hmctspublic.azurecr.io/hmcts/chart-nodejs
 
 jobs:
   - job: Validate
@@ -53,8 +55,8 @@ jobs:
           chartName: nodejs
           chartReleaseName: chart-nodejs-ci-test
           chartPath: $(repoName)/
-          valuesFile: $(repoName)/ci-values.yaml
-          additionalHelmArgs: --set image=hmctspublic.azurecr.io/hmcts/chart-nodejs:pr-$(System.PullRequest.PullRequestNumber)
+          valuesFile: $(valuesFile)
+          additionalHelmArgs: --set image=$(testAppImage):pr-$(System.PullRequest.PullRequestNumber)
 
   - job: Release
     # Make sure we are on the master branch with a tag
