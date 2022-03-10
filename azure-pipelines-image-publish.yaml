@@ -1,4 +1,4 @@
-name: Nodejs testapp image build and push Pipeline
+name: chart-nodejs test-app
 
 trigger:
   branches:
