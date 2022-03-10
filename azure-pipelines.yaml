@@ -56,7 +56,8 @@ jobs:
           chartReleaseName: chart-nodejs-ci-test
           chartPath: $(repoName)/
           valuesFile: $(valuesFile)
-          additionalHelmArgs: --set image=$(testAppImage):pr-$(System.PullRequest.PullRequestNumber)
+          ${{ if eq(variables['Build.Reason'], 'PullRequest') }}:
+            additionalHelmArgs: --set image=$(testAppImage):pr-$(System.PullRequest.PullRequestNumber)
 
   - job: Release
     # Make sure we are on the master branch with a tag
