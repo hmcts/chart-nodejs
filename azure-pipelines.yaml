@@ -48,8 +48,7 @@ jobs:
           - template: steps/acr-build.yaml@cnp-library
             parameters:
               serviceConnection: $(serviceConnection)
-
-              # buildPath: $(buildPath)
+              buildPath: $(buildPath)
 
       - template: steps/charts/validate.yaml@cnp-library
         parameters:
