@@ -8,13 +8,7 @@ trigger:
     include:
       - test-image
 
-pr:
-  branches:
-    include:
-      - master
-  paths:
-    include:
-      - test-image
+pr: none
 
 resources:
   repositories:
@@ -26,6 +20,14 @@ resources:
 variables:
   - name: agentPool
     value: ubuntu-latest
+  - name: acrName
+    value: hmctspublic
+  - name: acrResourceGroup
+    value: rpe-acr-prod-rg
+  - name: serviceConnection
+    value: azurerm-prod
+  - name: buildPath
+    value: chart-nodejs/test-image
 
 jobs:
   - job: BuildAndPushTestImage
@@ -35,4 +37,4 @@ jobs:
       - template: steps/acr-build.yaml@cnp-library
         parameters:
           serviceConnection: $(serviceConnection)
-          acrName: $(acrName)
+          buildPath: $(buildPath)
