@@ -26,8 +26,8 @@ variables:
     value: rpe-acr-prod-rg
   - name: serviceConnection
     value: azurerm-prod
-  - name: buildPath
-    value: chart-nodejs/test-image
+  # - name: buildPath
+  #   value: chart-nodejs/test-image
 
 jobs:
   - job: BuildAndPushTestImage
@@ -37,4 +37,3 @@ jobs:
       - template: steps/acr-build.yaml@cnp-library
         parameters:
           serviceConnection: $(serviceConnection)
-          buildPath: $(buildPath)
