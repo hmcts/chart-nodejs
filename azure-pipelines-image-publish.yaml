@@ -16,6 +16,7 @@ resources:
       type: github
       name: hmcts/cnp-azuredevops-libraries
       endpoint: hmcts
+      ref: msl8r-patch-1
 
 variables:
   - name: agentPool
@@ -36,6 +37,7 @@ jobs:
     steps:
       - checkout: self
         clean: true
+        
       - template: steps/acr-build.yaml@cnp-library
         parameters:
           serviceConnection: $(serviceConnection)
