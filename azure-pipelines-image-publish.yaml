@@ -16,7 +16,6 @@ resources:
       type: github
       name: hmcts/cnp-azuredevops-libraries
       endpoint: hmcts
-      ref: msl8r-patch-1
 
 variables:
   - name: agentPool
@@ -31,6 +30,9 @@ variables:
     value: chart-nodejs/test-image
 
 jobs:
+  - checkout: self
+    clean: true
+
   - job: BuildAndPushTestImage
     pool:
       vmImage: ${{ variables.agentPool }}
