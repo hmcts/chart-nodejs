@@ -1,0 +1,43 @@
+name: chart-nodejs test-app
+
+trigger:
+  branches:
+    include:
+      - master
+  paths:
+    include:
+      - test-image
+
+pr: none
+
+resources:
+  repositories:
+    - repository: cnp-library
+      type: github
+      name: hmcts/cnp-azuredevops-libraries
+      endpoint: hmcts
+
+variables:
+  - name: agentPool
+    value: ubuntu-latest
+  - name: acrName
+    value: hmctspublic
+  - name: acrResourceGroup
+    value: rpe-acr-prod-rg
+  - name: serviceConnection
+    value: azurerm-prod
+  - name: buildPath
+    value: test-image
+
+jobs:
+  - job: BuildAndPushTestImage
+    pool:
+      vmImage: ${{ variables.agentPool }}
+    steps:
+      - checkout: self
+        clean: true
+
+      - template: steps/acr-build.yaml@cnp-library
+        parameters:
+          serviceConnection: $(serviceConnection)
+          buildPath: $(buildPath)

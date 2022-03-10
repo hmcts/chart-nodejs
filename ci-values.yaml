@@ -3,7 +3,7 @@ global:
   environment: aat
   enableKeyVaults: true
 
-image: hmctspublic.azurecr.io/chart-nodejs/testapp
+image: hmctspublic.azurecr.io/hmcts/chart-nodejs:master
 replicas: 2
 useInterpodAntiAffinity: true
 ingressHost: "{{.Release.Name}}.service.core-compute-preview.internal"
