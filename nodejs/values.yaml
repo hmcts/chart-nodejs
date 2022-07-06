@@ -42,6 +42,5 @@ prometheus:
 ingressClass: traefik
 disableTraefikTls: true
 
-
 autoscaling:
   enabled: false
