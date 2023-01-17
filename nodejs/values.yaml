@@ -44,3 +44,4 @@ disableTraefikTls: true
 
 autoscaling:
   enabled: false
+  cpu: {}
