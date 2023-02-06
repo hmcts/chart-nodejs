@@ -5,7 +5,7 @@ registerAdditionalDns:
   enabled: false
 memoryRequests: 512Mi
 cpuRequests: 25m
-memoryLimits: 1024Mi
+memoryLimits: 512Mi
 cpuLimits: 500m
 devmemoryRequests: 64Mi
 devcpuRequests: 25m
