@@ -3,7 +3,7 @@ replicas: 1
 useInterpodAntiAffinity: true
 registerAdditionalDns:
   enabled: false
-memoryRequests: 64Mi
+memoryRequests: 512Mi
 cpuRequests: 25m
 memoryLimits: 512Mi
 cpuLimits: 500m
@@ -45,7 +45,9 @@ disableTraefikTls: true
 autoscaling:
   enabled: false
   cpu:
+    enabled: true
     averageUtilization: 80
   memory:
+    enabled: true
     averageUtilization: 80
 
