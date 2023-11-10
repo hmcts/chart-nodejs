@@ -22,11 +22,6 @@ keyVaults:
     excludeEnvironmentSuffix: false
     secrets:
       - test-secret
-  bulk-scan:
-    excludeEnvironmentSuffix: false
-    secrets:
-      - name: idam-client-secret
-        alias: idam.client.secret
 additionalPathBasedRoutes:
   "/test": "{{.Release.Name}}"
 
