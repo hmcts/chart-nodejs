@@ -57,7 +57,7 @@ jobs:
           chartReleaseName: chart-nodejs-ci-test
           helmInstallTimeout: "500"
           # chartPath: $(repoName)/
-          valuesFile: $(valuesFile)
+          # valuesFile: $(valuesFile)
           ${{ if eq(variables['Build.Reason'], 'PullRequest') }}:
             additionalHelmArgs: --set image=$(testAppImage):pr-$(System.PullRequest.PullRequestNumber)
 
