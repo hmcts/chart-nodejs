@@ -15,17 +15,17 @@ healthcheck.addTo(app,
     }
   })
 
-function checkForSecrets() {
-  try {
-    config.get('secrets.bulk-scan.idam-client-secret')
-    config.get('secrets.bulk-scan.s2s-secret')
-    return true
-  } catch (error) {
-    console.log(`ERROR:` + error)
+// function checkForSecrets() {
+//   try {
+//     config.get('secrets.bulk-scan.idam-client-secret')
+//     config.get('secrets.bulk-scan.s2s-secret')
+//     return true
+//   } catch (error) {
+//     console.log(`ERROR:` + error)
 
-    return false
-  }
-}
+//     return false
+//   }
+// }
 
 app.get('/', (req, res) => res.send(payload))
   .listen(port, () => console.log(`chart-nodeJs test app listening on http://0.0.0.0:${port}`))
