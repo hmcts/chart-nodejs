@@ -16,7 +16,7 @@
     "node": ">=8.0.0"
   },
   "dependencies": {
-    "@hmcts/nodejs-healthcheck": "1.7.0",
+    "@hmcts/nodejs-healthcheck": "1.8.3",
     "@hmcts/properties-volume": "0.0.13",
     "config": "^3.3.1",
     "express": "^4.17.3",
