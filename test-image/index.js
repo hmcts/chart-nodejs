@@ -8,7 +8,7 @@ const healthcheck = require('@hmcts/nodejs-healthcheck')
 healthcheck.addTo(app,
   {
     checks: {
-      webCheck: healthcheck.web("https://0.0.0.0:${port}/health"),
+      webCheck: healthcheck.web("https://0.0.0.0:${port}/"),
     },
     buildInfo: {
       'chart-testing': 'nodejs-chart test'
