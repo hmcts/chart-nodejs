@@ -17,7 +17,7 @@ healthcheck.addTo(app,
 
 function checkForSecrets() {
   try {
-    config.get('secrets.test-secrett')
+    config.get('secrets.plumsi.test-secret')
     return true
   } catch (error) {
     console.log(`ERROR:` + error)
