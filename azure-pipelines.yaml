@@ -16,6 +16,7 @@ resources:
       type: github
       name: hmcts/cnp-azuredevops-libraries
       endpoint: hmcts
+      ref: marty/chart-release-bugfix
 
 variables:
   - name: agentPool
