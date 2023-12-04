@@ -17,8 +17,7 @@ healthcheck.addTo(app,
 
 function checkForSecrets() {
   try {
-    config.get('secrets.bulk-scan.idam-client-secret')
-    config.get('secrets.bulk-scan.s2s-secret')
+    config.get('secrets.plumsi.test-secret')
     return true
   } catch (error) {
     console.log(`ERROR:` + error)
