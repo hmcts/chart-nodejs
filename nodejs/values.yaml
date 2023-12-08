@@ -1,6 +1,8 @@
 applicationPort: 3000
 replicas: 1
 useInterpodAntiAffinity: true
+spotInstances:
+  enabled: false
 registerAdditionalDns:
   enabled: false
 memoryRequests: 512Mi
