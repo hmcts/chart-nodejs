@@ -20,6 +20,8 @@ livenessDelay: 0
 livenessTimeout: 3
 livenessPeriod: 15
 livenessFailureThreshold: 3
+spotInstances:
+  enabled: false
 startupPath: '/health/liveness'
 startupDelay: 5
 startupTimeout: 3
