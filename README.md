@@ -83,7 +83,7 @@ To enable horizontal pod autoscaling you can enable the autoscaling section.
 https://docs.microsoft.com/en-us/azure/aks/tutorial-kubernetes-scale#autoscale-pods
 
 ```yaml
-autoscaling:        # Default is false
+autoscaling:        # Default is true
   enabled: true 
   maxReplicas: 5    # Required setting
   targetCPUUtilizationPercentage: 80 # Default is 80% target CPU utilization

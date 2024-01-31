@@ -45,7 +45,7 @@ ingressClass: traefik
 disableTraefikTls: true
 
 autoscaling:
-  enabled: false
+  enabled: true
   cpu:
     enabled: true
     averageUtilization: 80
