@@ -44,6 +44,13 @@ prometheus:
 ingressClass: traefik
 disableTraefikTls: true
 
+# HPA - example
+# autoscaling:
+#  enabled: true
+#  maxReplicas: 5
+#  minReplicas: 2
+#  targetCPUUtilizationPercentage: 80
+
 autoscaling:
   enabled: true
   cpu:
