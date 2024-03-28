@@ -19,7 +19,7 @@
     "@hmcts/nodejs-healthcheck": "1.7.0",
     "@hmcts/properties-volume": "0.0.13",
     "config": "^3.3.1",
-    "express": "^4.17.3",
+    "express": "^4.19.2",
     "js-yaml": "^3.14.0"
   }
 }
