@@ -15,4 +15,4 @@ icon: https://nodejs.org/static/images/logos/nodejs-new-pantone-black.png
 dependencies:
   - name: library
     version: 2.2.2
-    repository: oci://hmctspublic.azurecr.io/helm/
+    repository: oci://hmctspublic.azurecr.io/helm
