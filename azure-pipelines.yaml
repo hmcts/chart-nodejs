@@ -12,7 +12,7 @@ pr:
 
 resources:
   repositories:
-    - repository: cnp-library
+    - repository: cnp-azuredevops-libraries
       type: github
       name: hmcts/cnp-azuredevops-libraries
       endpoint: hmcts
@@ -44,18 +44,17 @@ jobs:
         clean: true
 
       - ${{ if eq(variables['Build.Reason'], 'PullRequest') }}:
-          - template: steps/acr-build.yaml@cnp-library
+          - template: steps/acr-build.yaml@cnp-azuredevops-libraries
             parameters:
               serviceConnection: $(serviceConnection)
               buildPath: $(buildPath)
 
-      - template: steps/charts/validate.yaml@cnp-library
+      - template: steps/charts/validate.yaml@cnp-azuredevops-libraries
         parameters:
           chartNamespace: chart-tests
           chartName: nodejs
           chartReleaseName: chart-nodejs-ci-test
-          chartPath: $(repoName)/
-          valuesFile: $(valuesFile)
+          helmInstallTimeout: "500"
           ${{ if eq(variables['Build.Reason'], 'PullRequest') }}:
             additionalHelmArgs: --set image=$(testAppImage):pr-$(System.PullRequest.PullRequestNumber)
 
@@ -72,7 +71,7 @@ jobs:
     pool:
       vmImage: ${{ variables.agentPool }}
     steps:
-      - template: steps/charts/release.yaml@cnp-library
+      - template: steps/charts/release.yaml@cnp-azuredevops-libraries
         parameters:
           chartNamespace: chart-tests
           chartName: nodejs

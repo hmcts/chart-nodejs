@@ -3,7 +3,7 @@ replicas: 1
 useInterpodAntiAffinity: true
 registerAdditionalDns:
   enabled: false
-memoryRequests: 64Mi
+memoryRequests: 512Mi
 cpuRequests: 25m
 memoryLimits: 512Mi
 cpuLimits: 500m
@@ -20,6 +20,8 @@ livenessDelay: 0
 livenessTimeout: 3
 livenessPeriod: 15
 livenessFailureThreshold: 3
+spotInstances:
+  enabled: false
 startupPath: '/health/liveness'
 startupDelay: 5
 startupTimeout: 3
@@ -42,10 +44,19 @@ prometheus:
 ingressClass: traefik
 disableTraefikTls: true
 
+# HPA - example
+# autoscaling:
+#  enabled: true
+#  maxReplicas: 5
+#  minReplicas: 2
+#  targetCPUUtilizationPercentage: 80
+
 autoscaling:
-  enabled: false
+  enabled: true
   cpu:
+    enabled: true
     averageUtilization: 80
   memory:
+    enabled: true
     averageUtilization: 80
-
+useWorkloadIdentity: true

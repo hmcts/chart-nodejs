@@ -67,25 +67,28 @@ To configure startup probes for a slow starting application:
 - If `livenessDelay` is currently configured, set the value to `0`  
 
 ### Example configuration
+
 The below example will allow the application 360 seconds to complete startup.  
+
 ```yaml
 nodejs:
   livenessDelay: 0
   startupPeriod: 120
   startupFailureThreshold: 3
 ```
+
 Also see example [pull request](https://github.com/hmcts/cnp-flux-config/pull/12922/files).
 
-
 ### HPA Horizontal Pod Autoscaler
+
 To adjust the number of pods in a deployment depending on CPU utilization AKS supports horizontal pod autoscaling.
-To enable horizontal pod autoscaling you can enable the autoscaling section. 
-https://docs.microsoft.com/en-us/azure/aks/tutorial-kubernetes-scale#autoscale-pods
+To enable horizontal pod autoscaling you can set the [autoscaling section](https://docs.microsoft.com/en-us/azure/aks/tutorial-kubernetes-scale#autoscale-pods).
 
 ```yaml
-autoscaling:        # Default is false
+autoscaling:        # Default is true
   enabled: true 
-  maxReplicas: 5    # Required setting
+  maxReplicas: 5    # Optional setting, will use the value of replicas + 2 if not set
+  minReplicas: 2    # Optional setting, will use the value of replicas if not set
   targetCPUUtilizationPercentage: 80 # Default is 80% target CPU utilization
 ```
 
@@ -99,6 +102,10 @@ Default configuration (e.g. default image and ingress host) is setup for sandbox
 - to clean up deployed releases, charts, test pods and local charts, run `make clean`
 
 `helm test` will deploy a busybox container alongside the release which performs a simple HTTP request against the service health endpoint. If it doesn't return `HTTP 200` the test will fail. **NOTE:** it does NOT run with `--cleanup` so the test pod will be available for inspection.
+
+## Releases
+We use semantic versioning via GitHub releases to handle new releases of this application chart, this is done via automation called Release Drafter. When you merge a PR to master, a new draft release will be created.
+More information is available about the [release process and how to create draft releases for testing purposes in more depth](https://hmcts.github.io/ops-runbooks/Testing-Changes/drafting-a-release.html)
 
 ### Troubleshooting
 

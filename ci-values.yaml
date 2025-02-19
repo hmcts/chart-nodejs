@@ -18,11 +18,10 @@ configmap:
   VAR_B: VALUE_B
 aadIdentityName: bsp
 keyVaults:
-  bulk-scan:
+  plumsi:
     excludeEnvironmentSuffix: false
     secrets:
-      - idam-client-secret
-      - s2s-secret
+      - test-secret
 additionalPathBasedRoutes:
   "/test": "{{.Release.Name}}"
 
