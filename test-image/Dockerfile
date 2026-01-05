@@ -1,4 +1,4 @@
-FROM hmctspublic.azurecr.io/base/node:12-alpine as base
+FROM hmctsprod.azurecr.io/base/node:12-alpine as base
 USER hmcts
 COPY package.json yarn.lock ./
 ADD ./config "/config"

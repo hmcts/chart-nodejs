@@ -21,7 +21,7 @@ variables:
   - name: agentPool
     value: ubuntu-latest
   - name: acrName
-    value: hmctspublic
+    value: hmctsprod
   - name: acrResourceGroup
     value: rpe-acr-prod-rg
   - name: serviceConnection
@@ -33,7 +33,7 @@ variables:
   - name: valuesFile
     value: $(repoName)/ci-values.yaml
   - name: testAppImage
-    value: hmctspublic.azurecr.io/hmcts/chart-nodejs
+    value: hmctsprod.azurecr.io/hmcts/chart-nodejs
 
 jobs:
   - job: Validate

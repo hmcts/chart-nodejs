@@ -117,7 +117,7 @@ In the case this image is not found on the registry when you run the `make` comm
 
 You can use the `make push-test-image-sbx` command to create and push the image (make sure you are logged in with the right credentials/subscription)
 
-You might have to to the same for the CI which uses the `hmctspublic.azurecr.io` registry with the `make push-test-image-non-prod` command.
+You might have to to the same for the CI which uses the `hmctsprod.azurecr.io` registry with the `make push-test-image-non-prod` command.
 
 #### Adding new resource fails in Azure Devops
 
