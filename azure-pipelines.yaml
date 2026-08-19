@@ -55,6 +55,7 @@ jobs:
           chartName: nodejs
           chartReleaseName: chart-nodejs-ci-test
           helmInstallTimeout: "500"
+          kubeconformValuesFile: ci-values-minimal.yaml
           ${{ if eq(variables['Build.Reason'], 'PullRequest') }}:
             additionalHelmArgs: --set image=$(testAppImage):pr-$(System.PullRequest.PullRequestNumber)
 
