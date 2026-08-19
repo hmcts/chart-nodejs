@@ -1,2 +1,2 @@
 # Fed into: kubeconform
-image: hmctspublic.azurecr.io/test/app:latest # only required field; all other values fall through to values.yaml defaults
+image: hmctsprod.azurecr.io/test/app:latest # only required field; all other values fall through to values.yaml defaults
