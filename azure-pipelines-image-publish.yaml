@@ -27,7 +27,7 @@ variables:
   - name: serviceConnection
     value: azurerm-prod
   - name: buildPath
-    value: test-image
+    value: chart-nodejs/test-image
 
 jobs:
   - job: BuildAndPushTestImage
@@ -35,6 +35,9 @@ jobs:
       vmImage: ${{ variables.agentPool }}
     steps:
       - checkout: self
+        clean: true
+
+      - checkout: cnp-azuredevops-libraries
         clean: true
 
       - template: steps/acr-build.yaml@cnp-azuredevops-libraries

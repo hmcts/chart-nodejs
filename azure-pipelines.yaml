@@ -36,19 +36,28 @@ variables:
     value: hmctsprod.azurecr.io/hmcts/chart-nodejs
 
 jobs:
-  - job: Validate
-    pool:
-      vmImage: ${{ variables.agentPool }}
-    steps:
-      - checkout: self
-        clean: true
+  - ${{ if eq(variables['Build.Reason'], 'PullRequest') }}:
+      - job: BuildTestImage
+        pool:
+          vmImage: ${{ variables.agentPool }}
+        steps:
+          - checkout: self
+            clean: true
 
-      - ${{ if eq(variables['Build.Reason'], 'PullRequest') }}:
+          - checkout: cnp-azuredevops-libraries
+            clean: true
+
           - template: steps/acr-build.yaml@cnp-azuredevops-libraries
             parameters:
               serviceConnection: $(serviceConnection)
               buildPath: $(buildPath)
 
+  - job: Validate
+    ${{ if eq(variables['Build.Reason'], 'PullRequest') }}:
+      dependsOn: BuildTestImage
+    pool:
+      vmImage: ${{ variables.agentPool }}
+    steps:
       - template: steps/charts/validate.yaml@cnp-azuredevops-libraries
         parameters:
           chartNamespace: chart-tests
