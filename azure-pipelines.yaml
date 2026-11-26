@@ -1,79 +1,50 @@
-name: Nodejs Chart CI Pipeline
-
+name: chart-nodejs pipeline
 trigger:
   branches:
     include:
-      - refs/tags/*
-
+    - refs/tags/*
 pr:
   branches:
     include:
-      - master
-
+    - master
 resources:
   repositories:
-    - repository: cnp-azuredevops-libraries
-      type: github
-      name: hmcts/cnp-azuredevops-libraries
-      endpoint: hmcts
+  - repository: cnp-azuredevops-libraries
+    type: github
+    ref: refs/heads/master
+    name: hmcts/cnp-azuredevops-libraries
+    endpoint: 'hmcts'
 
 variables:
   - name: agentPool
     value: ubuntu-latest
-  - name: acrName
-    value: hmctsprod
-  - name: acrResourceGroup
-    value: rpe-acr-prod-rg
-  - name: serviceConnection
-    value: azurerm-prod
-  - name: buildPath
-    value: chart-nodejs/test-image
-  - name: repoName
-    value: chart-nodejs
-  - name: valuesFile
-    value: $(repoName)/ci-values.yaml
-  - name: testAppImage
-    value: hmctsprod.azurecr.io/hmcts/chart-nodejs
 
 jobs:
-  - job: Validate
-    pool:
-      vmImage: ${{ variables.agentPool }}
-    steps:
-      - checkout: self
-        clean: true
+- job: Validate
+  pool:
+    vmImage: ${{ variables.agentPool }}
+  steps:
+  - template: steps/charts/validate.yaml@cnp-azuredevops-libraries
+    parameters:
+      chartName: nodejs
+      chartReleaseName: chart-nodejs-ci-test
+      chartNamespace: chart-tests
+      helmInstallTimeout: "500"
+      kubeconformValuesFile: ci-values-minimal.yaml
 
-      - ${{ if eq(variables['Build.Reason'], 'PullRequest') }}:
-          - template: steps/acr-build.yaml@cnp-azuredevops-libraries
-            parameters:
-              serviceConnection: $(serviceConnection)
-              buildPath: $(buildPath)
-
-      - template: steps/charts/validate.yaml@cnp-azuredevops-libraries
-        parameters:
-          chartNamespace: chart-tests
-          chartName: nodejs
-          chartReleaseName: chart-nodejs-ci-test
-          helmInstallTimeout: "500"
-          kubeconformValuesFile: ci-values-minimal.yaml
-          ${{ if eq(variables['Build.Reason'], 'PullRequest') }}:
-            additionalHelmArgs: --set image=$(testAppImage):pr-$(System.PullRequest.PullRequestNumber)
-
-  - job: Release
-    # Make sure we are on the master branch with a tag
-    # to trigger this job
-
-    condition: >
-      and(
-          succeeded(),
-          startsWith(variables['Build.SourceBranch'], 'refs/tags/')
-        )
-    dependsOn: Validate
-    pool:
-      vmImage: ${{ variables.agentPool }}
-    steps:
-      - template: steps/charts/release.yaml@cnp-azuredevops-libraries
-        parameters:
-          chartNamespace: chart-tests
-          chartName: nodejs
-          chartReleaseName: chart-nodejs
+- job: Release
+  # Make sure we have a tag to run this job
+  condition: >
+    and(
+        succeeded(),
+        startsWith(variables['Build.SourceBranch'], 'refs/tags/')
+      )
+  dependsOn: Validate
+  pool:
+    vmImage: ${{ variables.agentPool }}
+  steps:
+  - template: steps/charts/release.yaml@cnp-azuredevops-libraries
+    parameters:
+      chartName: nodejs
+      chartReleaseName: chart-nodejs
+      chartNamespace: chart-tests
